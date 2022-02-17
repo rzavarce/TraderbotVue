@@ -75,7 +75,7 @@
 
               <q-toggle
               :false-value="false"
-              :label="`Test Mode is ${general.status}`"
+              :label="`Status is ${general.status}`"
               :true-value="true"
               color="red"
               v-model="general.status"
@@ -123,15 +123,14 @@
               <q-select
               multiple
               filled
-              emit-value
               map-options
-              id="markets"
-              v-model="general.markets"
-              label="Markets *"
-              :options="markets_list"
+              id="currencies"
+              v-model="general.currencies"
+              label="Currencies *"
+              :options="currencies_list"
               behavior="menu"
               lazy-rules
-              :rules="[ val => val && val != null || 'Markets is required.']"
+              :rules="[ val => val && val != null || 'Currencies is required.']"
               >
               <template v-slot:option="{ itemProps, opt, selected, toggleOption }">
                 <q-item v-bind="itemProps">
@@ -242,6 +241,7 @@
         candles_interval_list: {},
         candles_limit_list: {},
         exchanges_list: {},
+        currencies_list: {},
         config_history: [],
         submitted: false
 
@@ -292,7 +292,7 @@
           "created_date": this.primitive.created_date,
           "modified_date": this.primitive.modified_date,
           "exchange": this.primitive.exchange,
-          "markets": this.primitive.markets
+          "currencies": this.primitive.currencies
         }
 
 
@@ -326,22 +326,21 @@
       this.exchanges_list = results
 
 
-      options = response.data.markets_list;
+      options = response.data.currencies_list;
       results = [];
       for(i=0; i<options.length; i++){
         let option = options[i];
-        results.push({ label: option["symbol"], value: option["id"] });
+        results.push({ label: option["name"], value: option["id"], short: option["short"] });
       }
-      this.markets_list = results
+      this.currencies_list = results
 
-      options = this.general.markets;
+      options = this.general.currencies;
       results = [];
       for(i=0; i<options.length; i++){
         let option = options[i];
-        results.push({ label: option["symbol"], value: option["id"] });
+        results.push({ label: option["name"], value: option["id"], short: option["short"] });
       }
-      this.general.markets = results
-
+      this.general.currencies = results
 
       this.primitive = {
         "id": this.general.id,
@@ -357,10 +356,8 @@
         "created_date": this.general.created_date,
         "modified_date": this.general.modified_date,
         "exchange": this.general.exchange,
-        "markets": this.general.markets
+        "currencies": this.general.currencies
       }
-
-
 
       let history = response.data.config_history
 
