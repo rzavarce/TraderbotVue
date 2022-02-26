@@ -44,7 +44,10 @@ const routes = [
 
       {path: '/Strategies', name:"strategies_index", component: () => import('pages/strategies/Index.vue'), beforeEnter: ifAuthenticated,},
       {path: '/Strategies/List', name:"strategies_list", component: () => import('pages/strategies/List.vue'), beforeEnter: ifAuthenticated,},
-      {path: '/Strategies/Add', name:"strategies_add", component: () => import('pages/strategies/Add.vue'), beforeEnter: ifAuthenticated,},
+      {path: '/Strategies/BTC/List', name:"strategies_btc_list", component: () => import('pages/strategies/BTC/List.vue'), beforeEnter: ifAuthenticated,},
+      {path: '/Strategies/BTC/Add', name:"strategies_btc_add", component: () => import('pages/strategies/BTC/Add.vue'), beforeEnter: ifAuthenticated,},
+      {path: '/Strategies/BTC/Edit/:id', name:"strategies_btc_edit", component: () => import('pages/strategies/BTC/Edit.vue'), beforeEnter: ifAuthenticated,},
+      
       {path: '/Strategies/Edit', name:"strategies_edit", component: () => import('pages/strategies/Edit.vue'), beforeEnter: ifAuthenticated,},
 
       {path: '/Portfolios/List', name:"portfolios_list", component: () => import('pages/portfolios/List.vue'), beforeEnter: ifAuthenticated,},

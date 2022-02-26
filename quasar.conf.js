@@ -66,8 +66,9 @@ module.exports = function (ctx) {
 
       env: {
 
-        ENV_TITLE:'Mapanare',
+        ENV_TITLE:'TraderBotService',
         ENV_APP_URL:'http://0.0.0.0:8080',
+        ENV_APP_ASSETS:'http://127.0.0.1:8000/',
         ENV_API_URL:'http://127.0.0.1:8000/api/v1',
 
 

@@ -47,13 +47,13 @@
           <q-card-section class="q-mx-sm">
             <div class="row q-col-gutter-lg">
 
-              <div style="min-width:230px;" class="col-lg-3 col-sm-12 col-xs-12 col-md-3" v-for="currency of currencies" v-bind:key="currency.id">
+              <div style="min-width:230px;" class="col-lg-3 col-sm-12 col-xs-12 col-md-3" v-for="strategy of strategies" v-bind:key="strategy.id">
 
                 <q-card style="max-width: 230px, min-width:200px;">
                   <q-card-section class="text-center">
                     <q-avatar size="150px" class="shadow-10">
                       <q-img
-                      :src="currency.logotype"
+                      :src="strategy.logotype"
                       :ratio="1"
                       />
                     </q-avatar>
@@ -61,23 +61,31 @@
 
                   <q-card-section class="q-pt-none text-center ">
                     <div class="text-h6  text-grey-8">
-                      {{ currency.name }} <br>
-                      {{ currency.short }}
+                      {{ strategy.title }} <br>
+                      
                     </div>
                     <div class="text-caption text-grey-8">
-                      {{ currency.desc }}
+                      <b>Stop Loss:</b> {{ strategy.stop_loss }} / <b>Lote Level:</b> {{ strategy.lote_level }}
                     </div>
                   </q-card-section>
                   <q-separator></q-separator>
                   <q-card-actions align="center">
                     <q-toggle
                     :false-value="false"
-                    :label="`Status is ${currency.status}`"
+                    :label="`Status is ${strategy.status}`"
                     :true-value="true"
                     color="red"
-                    v-model="currency.status"
+                    v-model="strategy.status"
                     />
                   </q-card-actions>
+                  <q-separator inset />
+
+
+              <q-card-actions align="around">
+                <q-btn round v-on:click='onEdit(strategy.id)' color="primary" icon="edit" ></q-btn>
+                <q-btn round @click="confirm = true; strategy_id = strategy.id" color="primary" icon="delete" ></q-btn>
+              </q-card-actions>
+
                 </q-card>
 
               </div>
@@ -135,6 +143,20 @@
     </div>
   </q-form>
 
+  <q-dialog v-model="confirm" persistent>
+      <q-card>
+        <q-card-section class="row items-center">
+          <q-avatar icon="signal_wifi_off" color="primary" text-color="white" />
+          <span class="q-ml-sm">You are currently not connected to any network.</span>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="Delete" color="red" v-on:click='onDelete()' v-close-popup icon="delete" />
+          <q-btn flat label="Cancel" color="primary" v-close-popup icon="cancel_schedule_send" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
 </q-card>
 </q-page>
 </template>
@@ -143,119 +165,95 @@
 <script>
 
   import axios from 'axios';
-  import '../../router/axiosInterceptor';
+  import '../../../router/axiosInterceptor';
 
   export default {
     data() {
 
       return {
         api_url: {},
-        currencies: [],
+        strategies: [],
         history:{},   
+        strategy_id:0,
+        confirm: false,
         submitted: false
 
       }
     },
     methods: {
-      onSubmit () {
+      onEdit (strategy_id) {
 
-        axios
-        .put(process.env.ENV_API_URL + '/bot_configs/' + this.general.id + '/',
-          this.general)
-        .then(
-          response => {
-            // this.$router.push('/');
-            console.log(response);
-            this.$q.notify({
-              color: 'green-4',
-              textColor: 'white',
-              icon: 'cloud_done',
-              message: 'Submitted'
-            }); 
+        this.$router.replace("/Strategies/BTC/Edit/" + strategy_id);
 
-          }), 
-        (error) => {
-          console.log(error);
-          this.$q.notify({
-            color: 'red-5',
-            textColor: 'white',
-            icon: 'warning',
-            message: 'Error: Somethings has been bad.'
-          })
-        }
       },
 
-      onReset () {
+      onDelete () {        
 
-        this.general = {
-          "id": this.primitive.id,
-          "nickname": this.primitive.nickname,
-          "test_mode": this.primitive.test_mode,
-          "api_key": this.primitive.api_key,
-          "api_secret": this.primitive.api_secret,
-          "candles_interval": this.primitive.candles_interval,
-          "candles_limit": this.primitive.candles_limit,
-          "pamic_button": this.primitive.pamic_button,
-          "description": this.primitive.description,
-          "status": this.primitive.status,
-          "created_date": this.primitive.created_date,
-          "modified_date": this.primitive.modified_date,
-          "exchange": this.primitive.exchange,
-          "markets": this.primitive.markets
-        }
+        axios
+         .delete(process.env.ENV_API_URL + '/strategies/BTC/' + this.strategy_id + '/')
+         .then(response => {
 
+
+          console.log("onDelete " + this.strategy_id);
+
+          this.strategies = this.strategies.filter(x => x.id !== this.strategy_id);
+
+          this.$q.notify({
+            color: 'green-4',
+            textColor: 'white',
+            icon: 'cloud_done',
+            message: 'Deleted'
+          });
+
+        })
+         .catch(error => {
+          console.log(error)
+          this.errored = true
+        })
+        .finally();
 
       }
     },
     mounted () {
 
      axios
-     .get(process.env.ENV_API_URL + '/strategies/')
+     .get(process.env.ENV_API_URL + '/strategies/BTC/')
      .then(response => {
 
-      
-      console.log(response.data);
 
-      let currencies_list = response.data.currencies_list
+      let strategies_list = response.data.results;
       let logotype;
       let i;
-      // this.api_url = process.env.ENV_API_URL
-      this.api_url = "http://localhost:8000/" 
+      for(i=0; i < strategies_list.length; i++){
 
-      console.log(currencies_list);
+        if (strategies_list[i].currency.logotype){
 
-
-      for(i=0; i < currencies_list.length; i++){
-
-        console.log(currencies_list[i].name); 
-
-        if (currencies_list[i].logotype){
-
-          logotype =  "http://localhost:8000/" + currencies_list[i].logotype;
+          logotype =  process.env.ENV_APP_ASSETS + strategies_list[i].currency.logotype;
 
         }else{
 
-          logotype = "http://localhost:8000/uploads/images/logotypes/" + "no_imagen_available.png";
+          logotype = process.env.ENV_APP_ASSETS + "/uploads/images/logotypes/no_imagen_available.png";
 
         }
 
+        this.strategies.push({
 
-        this.currencies.push({
-
-          id: currencies_list[i].id,
-          name: currencies_list[i].name,
-          short: currencies_list[i].short,
-          crypto: currencies_list[i].crypto,
+          id: strategies_list[i].id,
+          title: strategies_list[i].title,
+          currency: strategies_list[i].currency.short,
+          stop_loss: strategies_list[i].stop_loss,
+          lote_level: strategies_list[i].lote_level,
           logotype: logotype,
-          status: currencies_list[i].status,
+          status: strategies_list[i].status,
 
         })
+        
 
       }
 
+      console.log(this.strategies);
 
-
-      console.log(this.currencies);
+      /*
 
 
       let history = response.data.currencies_history
@@ -273,6 +271,9 @@
 
 
       }
+
+      */
+
 
     })
      .catch(error => {

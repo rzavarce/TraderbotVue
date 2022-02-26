@@ -105,20 +105,6 @@
               :rules="[val => !!val || 'Api Secret is required.']"
               />
 
-              <q-select
-              filled
-              clearable
-              emit-value
-              map-options
-              id="candles_interval"
-              v-model="general.candles_interval"
-              label="Candles Interval *"
-              :options="candles_interval_list"
-              behavior="menu"
-              lazy-rules
-              :rules="[ val => val && val != null || 'Candles Interval is required.']"
-              />
-
 
               <q-select
               multiple
@@ -143,6 +129,22 @@
                 </q-item>
               </template>
             </q-select>
+
+
+              <q-select
+              filled
+              clearable
+              emit-value
+              map-options
+              id="candles_interval"
+              v-model="general.candles_interval"
+              label="Candles Interval *"
+              :options="candles_interval_list"
+              behavior="menu"
+              lazy-rules
+              :rules="[ val => val && val != null || 'Candles Interval is required.']"
+              />
+
 
             <q-select
             filled
@@ -230,6 +232,7 @@
 
   import axios from 'axios';
   import '../../router/axiosInterceptor';
+  import { Loading } from 'quasar';
 
   export default {
     data() {
@@ -250,13 +253,16 @@
     methods: {
       onSubmit () {
 
+        Loading.show();
+
         axios
         .put(process.env.ENV_API_URL + '/bot_configs/' + this.general.id + '/',
           this.general)
         .then(
           response => {
-            // this.$router.push('/');
-            console.log(response);
+
+            Loading.hide();
+
             this.$q.notify({
               color: 'green-4',
               textColor: 'white',
@@ -266,7 +272,9 @@
 
           }), 
         (error) => {
-          console.log(error);
+          
+          Loading.hide();
+
           this.$q.notify({
             color: 'red-5',
             textColor: 'white',

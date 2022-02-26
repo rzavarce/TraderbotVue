@@ -268,7 +268,22 @@ label="Strategies"
     <q-item-label>List Strategies</q-item-label>
   </q-item-section>
 </q-item>
-<q-item to="/Strategies/Add" class="q-ml-xl" active-class="q-item-no-link-highlighting">
+
+<q-expansion-item
+
+  icon="receipt"
+  label="Bitcoin"
+  style="margin-left: 47px !important;"
+>
+<q-item to="/Strategies/BTC/List" class="q-ml-xl" active-class="q-item-no-link-highlighting">
+  <q-item-section avatar>
+    <q-icon name="view_list"/>
+  </q-item-section>
+  <q-item-section>
+    <q-item-label>List Strategies</q-item-label>
+  </q-item-section>
+</q-item>
+<q-item to="/Strategies/BTC/Add" class="q-ml-xl" active-class="q-item-no-link-highlighting">
   <q-item-section avatar>
     <q-icon name="view_list"/>
   </q-item-section>
@@ -276,6 +291,40 @@ label="Strategies"
     <q-item-label>Add Strategies</q-item-label>
   </q-item-section>
 </q-item>
+<q-item to="/Strategies/BTC/Edit/3" class="q-ml-xl" active-class="q-item-no-link-highlighting" >
+  <q-item-section avatar>
+    <q-icon name="view_list"/>
+  </q-item-section>
+  <q-item-section>
+    <q-item-label>Edit Strategies</q-item-label>
+  </q-item-section>
+</q-item>
+</q-expansion-item>
+
+<q-expansion-item
+
+  icon="receipt"
+  label="Etherium"
+  style="margin-left: 47px !important;"
+>
+  <q-item to="/Strategies/ETH/Add" class="q-ml-xl" active-class="q-item-no-link-highlighting">
+  <q-item-section avatar>
+    <q-icon name="view_list"/>
+  </q-item-section>
+  <q-item-section>
+    <q-item-label>Add Strategies</q-item-label>
+  </q-item-section>
+</q-item>
+<q-item to="/Strategies/ETH/Edit/3" class="q-ml-xl" active-class="q-item-no-link-highlighting" >
+  <q-item-section avatar>
+    <q-icon name="view_list"/>
+  </q-item-section>
+  <q-item-section>
+    <q-item-label>Edit Strategies</q-item-label>
+  </q-item-section>
+</q-item>
+</q-expansion-item>
+
 </q-expansion-item>
 <q-expansion-item
 icon="manage_accounts"
@@ -298,6 +347,29 @@ label="Portfolios"
   </q-item-section>
 </q-item>
 </q-expansion-item>
+
+<q-expansion-item
+icon="mail"
+label="Notificactions"
+>
+<q-item to="/PageTest" class="q-ml-xl" active-class="q-item-no-link-highlighting">
+  <q-item-section avatar>
+    <q-icon name="alternate_email"/>
+  </q-item-section>
+  <q-item-section>
+    <q-item-label>View notifications</q-item-label>
+  </q-item-section>
+</q-item>
+<q-item to="/PageTest" class="q-ml-xl" active-class="q-item-no-link-highlighting">
+  <q-item-section avatar>
+    <q-icon name="contact_mail"/>
+  </q-item-section>
+  <q-item-section>
+    <q-item-label>Send notification</q-item-label>
+  </q-item-section>
+</q-item>          
+</q-expansion-item>
+
 <q-expansion-item
 icon="description"
 label="Reports"

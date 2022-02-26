@@ -1,1 +1,35 @@
 /* app global css */
+
+
+
+@media screen and (max-width: 599px) {
+  .q-breadcrumbs {
+    font-size: 10px;
+  }
+
+  .q-btn {
+    font-size:12px;
+    padding: 5px;
+  }
+}
+
+
+.rules_label {
+
+	width: 100%;
+	padding: 10px 20px 30px 20px;
+	text-align: center;
+	font-size: 20px;
+
+}
+
+.rules_content {
+
+	margin: 20px 0px;
+	padding: 30px;
+	border: solid 1px grey;
+	border-radius: 5px;
+	text-align: center;
+
+}
+

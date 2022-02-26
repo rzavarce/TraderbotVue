@@ -116,7 +116,7 @@
                 <div class="row">
                   <div class="col">
                     <div class="rules_label">Stop Loss</div>
-                     
+
                   </div>
 
                 </div>
@@ -225,302 +225,302 @@
                   color="teal-10"
                   />
                   <div color="" class="q-mb-lg">
-                     <!--Zone Selected: {{ strategy.bear_zone_range.min }} to {{ strategy.bear_zone_range.max }} (0 to 100, step 5) -->
-                  </div>
+                   <!--Zone Selected: {{ strategy.bear_zone_range.min }} to {{ strategy.bear_zone_range.max }} (0 to 100, step 5) -->
+                 </div>
+               </div>
+
+               <div class="row justify-around" style="margin-left: 20px;">
+
+                <div class="rules_label">Bear Mod Range</div>                          
+
+                <q-range
+                v-model="strategy.bear_mod_range"
+                :min="0"
+                :max="10"
+                :step="1"
+                label
+                drag-range
+                markers
+                marker-labels
+                label-always
+                snap
+                color="teal-8"
+                />
+                <div color="" class="q-mb-lg">
+                  <!-- Zone Selected: {{ strategy.bull_zone_range.min }} to {{ strategy.bull_zone_range.max }} (0 to 100, step 5) -->
                 </div>
+              </div>
 
-                <div class="row justify-around" style="margin-left: 20px;">
+              <div class="row justify-around" style="margin-left: 20px;">
 
-                  <div class="rules_label">Bear Mod Range</div>                          
+                <div class="rules_label">Bear RSI Period</div>                          
 
-                  <q-range
-                  v-model="strategy.bear_mod_range"
-                  :min="0"
-                  :max="10"
-                  :step="1"
-                  label
-                  drag-range
-                  markers
-                  marker-labels
-                  label-always
-                  snap
-                  color="teal-8"
-                  />
-                  <div color="" class="q-mb-lg">
-                    <!-- Zone Selected: {{ strategy.bull_zone_range.min }} to {{ strategy.bull_zone_range.max }} (0 to 100, step 5) -->
-                  </div>
-                </div>
-
-                <div class="row justify-around" style="margin-left: 20px;">
-
-                  <div class="rules_label">Bear RSI Period</div>                          
-
-                  <q-slider
-                  v-model="strategy.bear_rsi_period"
-                  :min="0"
-                  :max="10"
-                  label                  
-                  label-always                  
-                  snap
-                  color="teal-5"
-                  />
-
-                </div>
-
+                <q-slider
+                v-model="strategy.bear_rsi_period"
+                :min="0"
+                :max="10"
+                label                  
+                label-always                  
+                snap
+                color="teal-5"
+                />
 
               </div>
 
+
             </div>
 
-            <div class="row rules_content">
+          </div>
 
-              <div class="col" style="margin-right: 20px;">
+          <div class="row rules_content">
+
+            <div class="col" style="margin-right: 20px;">
 
               <div class="zone_label">EMA</div>
               <br>
-                 <q-range
-                  v-model="strategy.ema_zone_range"
-                  :min="0"
-                  :max="100"
-                  :step="5"
-                  label
-                  drag-range
-                  markers
-                  marker-labels
-                  label-always
-                  snap
-                  color="red-10"
-                  />
-                  <div color="" class="q-mb-lg">
-                     <!-- Zone Selected: {{ strategy.ema_zone_range.min }} to {{ strategy.ema_zone_range.max }} (0 to 100, step 5) -->
-                  </div>
+              <q-range
+              v-model="strategy.ema_zone_range"
+              :min="0"
+              :max="100"
+              :step="5"
+              label
+              drag-range
+              markers
+              marker-labels
+              label-always
+              snap
+              color="red-10"
+              />
+              <div color="" class="q-mb-lg">
+               <!-- Zone Selected: {{ strategy.ema_zone_range.min }} to {{ strategy.ema_zone_range.max }} (0 to 100, step 5) -->
+             </div>
 
 
-              </div>
-              <q-separator vertical inset></q-separator>
-              <div class="col" style="margin: 0px 20px;">
-              <div class="zone_label">ADX</div>
-                <br>
-                 <q-range
-                  v-model="strategy.adx_zone_range"
-                  :min="0"
-                  :max="100"
-                  :step="5"
-                  label
-                  drag-range
-                  markers
-                  marker-labels
-                  label-always
-                  snap
-                  color="red-10"
-                  />
-                  <div color="" class="q-mb-lg">
-                    <!-- Zone Selected: {{ strategy.adx_zone_range.min }} to {{ strategy.adx_zone_range.max }} (0 to 100, step 5) -->
-                  </div>
-                <br>
-                <q-slider
-                  v-model="strategy.adx_period"
-                  :min="0"
-                  :max="10"
-                  label                  
-                  label-always                  
-                  snap
-                  color="red-8"
-                />
-                
-                
-              </div>
-              <q-separator vertical inset></q-separator>
-              <div class="col" style="margin-left: 20px;">
-              <div class="zone_label">RSI</div>
-              <br>
-              <q-slider
-                  v-model="strategy.rsi_period"
-                  :min="0"
-                  :max="10"
-                  label                  
-                  label-always                  
-                  snap
-                  color="red-7"
-                />
-              </div>
-
+           </div>
+           <q-separator vertical inset></q-separator>
+           <div class="col" style="margin: 0px 20px;">
+            <div class="zone_label">ADX</div>
+            <br>
+            <q-range
+            v-model="strategy.adx_zone_range"
+            :min="0"
+            :max="100"
+            :step="5"
+            label
+            drag-range
+            markers
+            marker-labels
+            label-always
+            snap
+            color="red-10"
+            />
+            <div color="" class="q-mb-lg">
+              <!-- Zone Selected: {{ strategy.adx_zone_range.min }} to {{ strategy.adx_zone_range.max }} (0 to 100, step 5) -->
             </div>
+            <br>
+            <q-slider
+            v-model="strategy.adx_period"
+            :min="0"
+            :max="10"
+            label                  
+            label-always                  
+            snap
+            color="red-8"
+            />
 
 
-            <div class="row rules_content">
-
-              <div class="col">
-
-
-                <div class="row">
-                  <div class="col">
-                    <div class="zone_label">Stochrsi RSI Period</div>
-
-                  </div>
-                  <div class="col">
-                    <div class="zone_label">Stochrsi Smooth D</div>
-
-                  </div>
-                  <div class="col">
-                    <div class="zone_label">Stochrsi Smooth K</div>
-
-                  </div>
-                </div>
-                <br>
-                <div class="row justify-around">
-
-
-                  <q-slider
-                  v-model="strategy.stochrsi_rsi_period"
-                  :min="0"
-                  :max="10"
-                  vertical
-                  label                  
-                  label-always                  
-                  snap
-                  color="black"
-                  />
-
-
-                  <q-slider
-                  v-model="strategy.stochrsi_smooth_k"
-                  :min="0"
-                  :max="10"                  
-                  vertical
-                  label                  
-                  label-always                  
-                  snap
-                  color="grey-10"               
-                  
-                  />
-
-                  <q-slider
-                  v-model="strategy.stochrsi_smooth_d"
-                  :min="0"
-                  :max="10"                  
-                  vertical
-                  label                  
-                  label-always                  
-                  snap
-                  color="grey-9"                
-                  
-                  />
-
-                </div>
-
-              </div>
-              <q-separator vertical inset></q-separator>
-              <div class="col">
-
-                <div class="row">
-                  <div class="col">
-                    <div class="zone_label">Stochrsi Period</div>
-
-                  </div>
-                  <div class="col">
-                    <div class="zone_label">Stochrsi High</div>
-
-                  </div>
-                  <div class="col">
-                    <div class="zone_label">Stochrsi Low</div>
-
-                  </div>
-                </div>
-                <br>
-                <div class="row justify-around">
-
-
-                  <q-slider
-                  v-model="strategy.stochrsi_period"
-                  :min="0"
-                  :max="10"
-                  vertical
-                  label                  
-                  label-always                  
-                  snap
-                  color="grey-8" 
-                  />
-
-
-                  <q-slider
-                  v-model="strategy.stochrsi_high"
-                  :min="0"
-                  :max="10"                  
-                  vertical
-                  label                  
-                  label-always                  
-                  snap
-                  color="grey-7"                 
-                  
-                  />
-
-                  <q-slider
-                  v-model="strategy.stochrsi_low"
-                  :min="0"
-                  :max="10"                  
-                  vertical
-                  label                  
-                  label-always                  
-                  snap
-                  color="grey-6"                 
-                  
-                  />
-
-                </div>
-              </div>
-
-            </div>
-          </q-card-section>
+          </div>
+          <q-separator vertical inset></q-separator>
+          <div class="col" style="margin-left: 20px;">
+            <div class="zone_label">RSI</div>
+            <br>
+            <q-slider
+            v-model="strategy.rsi_period"
+            :min="0"
+            :max="10"
+            label                  
+            label-always                  
+            snap
+            color="red-7"
+            />
+          </div>
 
         </div>
-        <q-separator vertical inset></q-separator>
-        <div class="col">
 
-          <q-card-section class="text-h6 q-pb-none">
-            <q-item>
-              <q-item-section avatar class="">
-                <q-icon color="blue" name="access_time" style="font-size: 2em;"/>
-              </q-item-section>
 
-              <q-item-section>
-                <div class="text-h6">History Activity</div>
-              </q-item-section>
-            </q-item>
-          </q-card-section>
-          <q-card-section style="margin-left:27px;">
-            <q-timeline  color="secondary">
+        <div class="row rules_content">
 
-              <q-timeline-entry
-                v-for="(strategies_history, index) in strategies_history"
-                :key="index"
-                :title="strategies_history.title"
-                :subtitle="strategies_history.subtitle" 
-                :color="strategies_history.color" 
-                :icon="strategies_history.icon"
-                :side="strategies_history.side"
-              >
+          <div class="col">
 
-              {{strategies_history.desc}}
 
-            </q-timeline-entry>
+            <div class="row">
+              <div class="col">
+                <div class="zone_label">Stochrsi RSI Period</div>
 
-          </q-timeline>
+              </div>
+              <div class="col">
+                <div class="zone_label">Stochrsi Smooth D</div>
 
-          <q-breadcrumbs-el label="See More" icon="add" to="/Dashboard" />
-        </q-card-section>
+              </div>
+              <div class="col">
+                <div class="zone_label">Stochrsi Smooth K</div>
 
-      </div>
+              </div>
+            </div>
+            <br>
+            <div class="row justify-around">
+
+
+              <q-slider
+              v-model="strategy.stochrsi_rsi_period"
+              :min="0"
+              :max="10"
+              vertical
+              label                  
+              label-always                  
+              snap
+              color="black"
+              />
+
+
+              <q-slider
+              v-model="strategy.stochrsi_smooth_k"
+              :min="0"
+              :max="10"                  
+              vertical
+              label                  
+              label-always                  
+              snap
+              color="grey-10"               
+
+              />
+
+              <q-slider
+              v-model="strategy.stochrsi_smooth_d"
+              :min="0"
+              :max="10"                  
+              vertical
+              label                  
+              label-always                  
+              snap
+              color="grey-9"                
+
+              />
+
+            </div>
+
+          </div>
+          <q-separator vertical inset></q-separator>
+          <div class="col">
+
+            <div class="row">
+              <div class="col">
+                <div class="zone_label">Stochrsi Period</div>
+
+              </div>
+              <div class="col">
+                <div class="zone_label">Stochrsi High</div>
+
+              </div>
+              <div class="col">
+                <div class="zone_label">Stochrsi Low</div>
+
+              </div>
+            </div>
+            <br>
+            <div class="row justify-around">
+
+
+              <q-slider
+              v-model="strategy.stochrsi_period"
+              :min="0"
+              :max="10"
+              vertical
+              label                  
+              label-always                  
+              snap
+              color="grey-8" 
+              />
+
+
+              <q-slider
+              v-model="strategy.stochrsi_high"
+              :min="0"
+              :max="10"                  
+              vertical
+              label                  
+              label-always                  
+              snap
+              color="grey-7"                 
+
+              />
+
+              <q-slider
+              v-model="strategy.stochrsi_low"
+              :min="0"
+              :max="10"                  
+              vertical
+              label                  
+              label-always                  
+              snap
+              color="grey-6"                 
+
+              />
+
+            </div>
+          </div>
+
+        </div>
+      </q-card-section>
+
     </div>
-    <q-separator></q-separator>
-    <div class="row">
-      <div class="q-mt-md" style="margin:20px;">
-        <q-btn label="Submit" icon="send" type="submit"  color="primary"/>
-        <q-btn label="Reset" icon="restore" type="reset" color="secundary" flat class="q-ml-sm" />
-        <q-btn label="Cancel" icon="cancel_schedule_send" type="button" color="red" flat class="q-ml-sm" :to="{name: 'dashboard'}" />
-      </div>
-    </div>
-  </q-form>
+    <q-separator vertical inset></q-separator>
+    <div class="col">
+
+      <q-card-section class="text-h6 q-pb-none">
+        <q-item>
+          <q-item-section avatar class="">
+            <q-icon color="blue" name="access_time" style="font-size: 2em;"/>
+          </q-item-section>
+
+          <q-item-section>
+            <div class="text-h6">History Activity</div>
+          </q-item-section>
+        </q-item>
+      </q-card-section>
+      <q-card-section style="margin-left:27px;">
+        <q-timeline  color="secondary">
+
+          <q-timeline-entry
+          v-for="(strategies_history, index) in strategies_history"
+          :key="index"
+          :title="strategies_history.title"
+          :subtitle="strategies_history.subtitle" 
+          :color="strategies_history.color" 
+          :icon="strategies_history.icon"
+          :side="strategies_history.side"
+          >
+
+          {{strategies_history.desc}}
+
+        </q-timeline-entry>
+
+      </q-timeline>
+
+      <q-breadcrumbs-el label="See More" icon="add" to="/Dashboard" />
+    </q-card-section>
+
+  </div>
+</div>
+<q-separator></q-separator>
+<div class="row">
+  <div class="q-mt-md" style="margin:20px;">
+    <q-btn label="Submit" icon="send" type="submit"  color="primary"/>
+    <q-btn label="Reset" icon="restore" type="reset" color="secundary" flat class="q-ml-sm" />
+    <q-btn label="Cancel" icon="cancel_schedule_send" type="button" color="red" flat class="q-ml-sm" :to="{name: 'dashboard'}" />
+  </div>
+</div>
+</q-form>
 
 </q-card>
 </q-page>
@@ -530,7 +530,7 @@
 <script>
   import { ref } from 'vue'
   import axios from 'axios';
-  import '../../router/axiosInterceptor';
+  import '../../../router/axiosInterceptor';
   import { Loading } from 'quasar';
 
   export default {
@@ -547,7 +547,7 @@
       }
     },
     methods: {
-      onSubmit () {
+      onSubmit:function() {
 
         // Loading.show();
 
@@ -588,20 +588,38 @@
 
 
         axios
-        .post(process.env.ENV_API_URL + '/strategies/Add/',
+        .post(process.env.ENV_API_URL + '/strategies/BTC/Add/',
           form_data)
         .then(
           response => {
-            
-            Loading.hide();
 
-            console.log(response);
+            this.strategies_history = [];
+            let history = response.data.strategies_history;
+            let i;
+            for(i=0; i < history.length; i++){ 
+
+              this.strategies_history.push({
+                title: history[i].title,
+                subtitle: history[i].history_date,
+                side: 'left',
+                desc: history_types[history[i].history_type].desc,
+                color: history_types[history[i].history_type].color,
+                icon: history_types[history[i].history_type].icon
+              });
+
+            }
+
             this.$q.notify({
               color: 'green-4',
               textColor: 'white',
               icon: 'cloud_done',
               message: 'Submitted'
             }); 
+
+
+            this.onReset();
+            
+            Loading.hide();
 
           }), 
         (error) => {
@@ -619,7 +637,7 @@
         }
       },
 
-      onReset () {
+      onReset:function() {
 
         this.strategy = {
           "title":"",
@@ -635,10 +653,18 @@
             min: 20,
             max: 60
           },
-          "bull_mod_high": 5,
-          "bull_low_mod": 5,
-          "bear_high_mod": 5,
-          "bear_low_mod": 5,
+          "bull_mod_range":{
+            min: 3,
+            max: 6
+          },
+          "bull_mod_range":{
+            min: 3,
+            max: 6
+          },
+          "bear_mod_range":{
+            min: 3,
+            max: 6
+          },
           "ema_zone_range":{
             min: 20,
             max: 60
@@ -647,6 +673,8 @@
             min: 20,
             max: 60
           },
+          "bull_rsi_period": 5,
+          "bear_rsi_period": 5,
           "adx_period": 5,
           "rsi_period": 5,
           "stochrsi_rsi_period": 5,
@@ -655,14 +683,19 @@
           "stochrsi_period": 5,
           "stochrsi_high": 5,
           "stochrsi_low": 5,
+
         }
+
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+
 
       }
     },
     mounted () {
 
      axios
-     .get(process.env.ENV_API_URL + '/strategies/Add/')
+     .get(process.env.ENV_API_URL + '/strategies/BTC/Add/')
      .then(response => {
 
       let results = [];
@@ -749,7 +782,7 @@
    },
  }
 
-let history_types = {
+ let history_types = {
   "+": {
     "icon": "add",
     "color": "green",
