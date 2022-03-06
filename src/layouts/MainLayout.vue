@@ -252,25 +252,7 @@ content-class="bg-primary text-white"
 icon="manage_accounts"
 label="Strategies"
 >
-<q-item to="/Strategies" class="q-ml-xl" active-class="q-item-no-link-highlighting">
-  <q-item-section avatar>
-    <q-icon name="account_circle"/>
-  </q-item-section>
-  <q-item-section>
-    <q-item-label>Table Strategies</q-item-label>
-  </q-item-section>
-</q-item>
-<q-item to="/Strategies/List" class="q-ml-xl" active-class="q-item-no-link-highlighting">
-  <q-item-section avatar>
-    <q-icon name="view_list"/>
-  </q-item-section>
-  <q-item-section>
-    <q-item-label>List Strategies</q-item-label>
-  </q-item-section>
-</q-item>
-
 <q-expansion-item
-
   icon="receipt"
   label="Bitcoin"
   style="margin-left: 47px !important;"
@@ -291,14 +273,7 @@ label="Strategies"
     <q-item-label>Add Strategies</q-item-label>
   </q-item-section>
 </q-item>
-<q-item to="/Strategies/BTC/Edit/3" class="q-ml-xl" active-class="q-item-no-link-highlighting" >
-  <q-item-section avatar>
-    <q-icon name="view_list"/>
-  </q-item-section>
-  <q-item-section>
-    <q-item-label>Edit Strategies</q-item-label>
-  </q-item-section>
-</q-item>
+
 </q-expansion-item>
 
 <q-expansion-item
@@ -307,6 +282,16 @@ label="Strategies"
   label="Etherium"
   style="margin-left: 47px !important;"
 >
+
+<q-item to="/Strategies/ETH/List" class="q-ml-xl" active-class="q-item-no-link-highlighting">
+  <q-item-section avatar>
+    <q-icon name="view_list"/>
+  </q-item-section>
+  <q-item-section>
+    <q-item-label>List Strategies</q-item-label>
+  </q-item-section>
+</q-item>
+
   <q-item to="/Strategies/ETH/Add" class="q-ml-xl" active-class="q-item-no-link-highlighting">
   <q-item-section avatar>
     <q-icon name="view_list"/>
@@ -315,14 +300,7 @@ label="Strategies"
     <q-item-label>Add Strategies</q-item-label>
   </q-item-section>
 </q-item>
-<q-item to="/Strategies/ETH/Edit/3" class="q-ml-xl" active-class="q-item-no-link-highlighting" >
-  <q-item-section avatar>
-    <q-icon name="view_list"/>
-  </q-item-section>
-  <q-item-section>
-    <q-item-label>Edit Strategies</q-item-label>
-  </q-item-section>
-</q-item>
+
 </q-expansion-item>
 
 </q-expansion-item>
@@ -335,18 +313,50 @@ label="Portfolios"
     <q-icon name="account_circle"/>
   </q-item-section>
   <q-item-section>
-    <q-item-label>Portfolio</q-item-label>
+    <q-item-label>List Portfolio</q-item-label>
   </q-item-section>
 </q-item>
-<q-item to="/PageTest" class="q-ml-xl" active-class="q-item-no-link-highlighting">
+<q-item to="/Portfolios/Add" class="q-ml-xl" active-class="q-item-no-link-highlighting">
   <q-item-section avatar>
     <q-icon name="view_list"/>
   </q-item-section>
   <q-item-section>
-    <q-item-label>Accounts</q-item-label>
+    <q-item-label>Add Portfolio</q-item-label>
   </q-item-section>
 </q-item>
 </q-expansion-item>
+
+<q-expansion-item
+icon="description"
+label="Reports"
+>
+<q-item to="/Reports/Operations" class="q-ml-xl" active-class="q-item-no-link-highlighting">
+  <q-item-section avatar>
+    <q-icon name="account_balance"/>
+  </q-item-section>
+  <q-item-section>
+    <q-item-label>Operations Report</q-item-label>
+  </q-item-section>
+</q-item>
+<q-item to="/Reports/Balances" class="q-ml-xl" active-class="q-item-no-link-highlighting">
+  <q-item-section avatar>
+    <q-icon name="account_balance_wallet"/>
+  </q-item-section>
+  <q-item-section>
+    <q-item-label>Balances Report</q-item-label>
+  </q-item-section>
+</q-item>
+<q-item to="/PageTest" class="q-ml-xl" active-class="q-item-no-link-highlighting">
+  <q-item-section avatar>
+    <q-icon name="reorder"/>
+  </q-item-section>
+  <q-item-section>
+    <q-item-label>Activity Report</q-item-label>
+  </q-item-section>
+</q-item>
+
+</q-expansion-item>
+
 
 <q-expansion-item
 icon="mail"
@@ -370,36 +380,6 @@ label="Notificactions"
 </q-item>          
 </q-expansion-item>
 
-<q-expansion-item
-icon="description"
-label="Reports"
->
-<q-item to="/PageTest" class="q-ml-xl" active-class="q-item-no-link-highlighting">
-  <q-item-section avatar>
-    <q-icon name="account_balance"/>
-  </q-item-section>
-  <q-item-section>
-    <q-item-label>Operations Report</q-item-label>
-  </q-item-section>
-</q-item>
-<q-item to="/PageTest" class="q-ml-xl" active-class="q-item-no-link-highlighting">
-  <q-item-section avatar>
-    <q-icon name="account_balance_wallet"/>
-  </q-item-section>
-  <q-item-section>
-    <q-item-label>Balance Report</q-item-label>
-  </q-item-section>
-</q-item>
-<q-item to="/PageTest" class="q-ml-xl" active-class="q-item-no-link-highlighting">
-  <q-item-section avatar>
-    <q-icon name="reorder"/>
-  </q-item-section>
-  <q-item-section>
-    <q-item-label>Activity Report</q-item-label>
-  </q-item-section>
-</q-item>
-
-</q-expansion-item>
 
 <q-expansion-item
 icon="notifications"

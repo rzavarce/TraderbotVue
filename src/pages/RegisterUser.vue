@@ -99,6 +99,9 @@
 <script>
 import axios from 'axios'
 import { Base64 } from 'js-base64';
+import '../router/axiosInterceptor';
+
+
 
 export default {
   data () {
@@ -115,7 +118,18 @@ export default {
       form_validation_message: '',
     }
   },
-
+  mounted () {
+      let axiosConfig = {
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8",
+        // "Access-Control-Allow-Origin": "*",
+        // "Authorization": "JWT " + this.$store.state.jwt
+      },
+      xsrfCookieName: 'csrftoken',
+      xsrfHeaderName: 'X-CSRFToken',
+      // withCredentials: true
+    };
+  },
   methods: {
 
       send_register_form(){

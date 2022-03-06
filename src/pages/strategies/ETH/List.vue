@@ -6,9 +6,9 @@
         <div class="row" style="background-color:white;">
           <div class="col-xs-12 col-sm-6">
             <div class="q-pa-md q-gutter-sm">
-              <span class="text-h4 text-indigo-8">Strategies Config</span>
+              <span class="text-h4 text-indigo-8">ETH Strategies List</span>
               <br>
-              <span class="text-subtitle2">Strategies Adminitration.</span>
+              <span class="text-subtitle2">ETH Strategies Adminitration.</span>
             </div>
           </div>
           <div class="col-xs-12 col-sm-6">
@@ -23,8 +23,8 @@
                 </template>
 
                 <q-breadcrumbs-el label="Dashboard" icon="home" to="/Dashboard" />
-                <q-breadcrumbs-el label="Configs" icon="admin_panel_settings" to="/Configs" />
-                <q-breadcrumbs-el label="Strategies" icon="admin_panel_settings" />
+                <q-breadcrumbs-el label="Strategies" icon="admin_panel_settings" to="/Strategies/ETH/List" />
+                <q-breadcrumbs-el label="Etherium" icon="admin_panel_settings" />
               </q-breadcrumbs>
             </div>
           </div>
@@ -35,15 +35,8 @@
 
       <q-separator></q-separator>
 
-      <q-form
-      ref="myForm"
-      @submit="onSubmit"
-      @reset="onReset"
-      class="q-gutter-md"
-      > 
-
       <div class="row">
-        <div class="col-12 col-md-8">
+        <div class="col-12 col-md-12">
           <q-card-section class="q-mx-sm">
             <div class="row q-col-gutter-lg">
 
@@ -81,11 +74,29 @@
                   <q-separator inset />
 
 
-              <q-card-actions align="around">
-                <q-btn round v-on:click='onEdit(strategy.id)' color="primary" icon="edit" ></q-btn>
-                <q-btn round @click="confirm = true; strategy_id = strategy.id" color="primary" icon="delete" ></q-btn>
-              </q-card-actions>
+                  <q-card-actions align="around">
+                    <q-btn round @click="onEdit(strategy.id)" color="primary" icon="edit" ></q-btn>
+                    <q-btn round @click="confirm = true; strategy_id = strategy.id" color="primary" icon="delete" ></q-btn>
+                  </q-card-actions>
 
+                </q-card>
+
+              </div>
+
+              <div style="min-width:300px;" class="col-lg-3 col-sm-12 col-xs-12 col-md-3">
+
+                <q-card style="max-width: 300px, min-width: 300px; height: 367px; color:white;">
+                  
+                  <q-card-section class="text-center" style=" padding-top: 50px;">
+
+                    <q-btn class="add_card_button" to="/Strategies/ETH/Add">
+
+                      <span style="font-size:50px; ">+</span>
+
+                    </q-btn>
+
+                  </q-card-section>                 
+                 
                 </q-card>
 
               </div>
@@ -95,70 +106,26 @@
           </q-card-section>
 
         </div>
-        <q-separator vertical inset></q-separator>
-        <div class="col-12 col-md-3 gt-xs" style="padding: 20px;">
 
-          <q-card-section class="text-h6 q-pb-none">
-            <q-item>
-              <q-item-section avatar class="">
-                <q-icon color="blue" name="access_time" style="font-size: 2em;"/>
-              </q-item-section>
+      </div>
 
-              <q-item-section>
-                <div class="text-h6">History Activity</div>
-              </q-item-section>
-            </q-item>
+
+      <q-dialog v-model="confirm" persistent>
+        <q-card>
+          <q-card-section class="row items-center">
+            <q-avatar icon="warning" color="red" text-color="white" />
+            <span class="q-ml-sm error">Are you sure you want to Delete?.</span>
           </q-card-section>
-          <q-card-section style="margin-left:27px;">
-            <q-timeline  color="secondary">
 
-              <q-timeline-entry
-              v-for="(config_history, index) in config_history"
-              :key="index"
-              :title="config_history.title"
-              :subtitle="config_history.subtitle" 
-              :color="config_history.color" 
-              :icon="config_history.icon"
-              :side="config_history.side"
-              >
+          <q-card-actions align="right">
+            <q-btn flat label="Delete" color="red" v-on:click='onDelete()' v-close-popup icon="delete" />
+            <q-btn flat label="Cancel" color="primary" v-close-popup icon="cancel_schedule_send" />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
 
-              {{config_history.desc}}
-
-            </q-timeline-entry>
-
-          </q-timeline>
-
-          <q-breadcrumbs-el label="See More" icon="add" to="/Dashboard" />
-        </q-card-section>
-
-      </div>
-    </div>
-    <q-separator></q-separator>
-    <div class="row">
-      <div class="q-mt-md" style="margin:20px;">
-        <q-btn label="Submit" icon="send" type="submit"  color="primary"/>
-        <q-btn label="Reset" icon="restore" type="reset" color="secundary" flat class="q-ml-sm" />
-        <q-btn label="Cancel" icon="cancel_schedule_send" type="button" color="red" flat class="q-ml-sm" :to="{name: 'dashboard'}" />
-      </div>
-    </div>
-  </q-form>
-
-  <q-dialog v-model="confirm" persistent>
-      <q-card>
-        <q-card-section class="row items-center">
-          <q-avatar icon="signal_wifi_off" color="primary" text-color="white" />
-          <span class="q-ml-sm">You are currently not connected to any network.</span>
-        </q-card-section>
-
-        <q-card-actions align="right">
-          <q-btn flat label="Delete" color="red" v-on:click='onDelete()' v-close-popup icon="delete" />
-          <q-btn flat label="Cancel" color="primary" v-close-popup icon="cancel_schedule_send" />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-
-</q-card>
-</q-page>
+    </q-card>
+  </q-page>
 </template>
 
 
@@ -183,15 +150,15 @@
     methods: {
       onEdit (strategy_id) {
 
-        this.$router.replace("/Strategies/BTC/Edit/" + strategy_id);
+        this.$router.replace("/Strategies/ETH/Edit/" + strategy_id);
 
       },
 
       onDelete () {        
 
         axios
-         .delete(process.env.ENV_API_URL + '/strategies/BTC/' + this.strategy_id + '/')
-         .then(response => {
+        .delete(process.env.ENV_API_URL + '/strategies/ETH/' + this.strategy_id + '/')
+        .then(response => {
 
 
           console.log("onDelete " + this.strategy_id);
@@ -206,7 +173,7 @@
           });
 
         })
-         .catch(error => {
+        .catch(error => {
           console.log(error)
           this.errored = true
         })
@@ -217,9 +184,8 @@
     mounted () {
 
      axios
-     .get(process.env.ENV_API_URL + '/strategies/BTC/')
+     .get(process.env.ENV_API_URL + '/strategies/ETH/')
      .then(response => {
-
 
       let strategies_list = response.data.results;
       let logotype;
@@ -251,39 +217,12 @@
 
       }
 
-      console.log(this.strategies);
-
-      /*
-
-
-      let history = response.data.currencies_history
-
-      for(i=0; i < history.length; i++){
-
-        this.config_history.push({
-          title: history[i].nickname,
-          subtitle: history[i].history_date,
-          side: 'left',
-          desc: history_types[history[i].history_type].desc,
-          color: history_types[history[i].history_type].color,
-          icon: history_types[history[i].history_type].icon
-        })
-
-
-      }
-
-      */
-
-
     })
      .catch(error => {
       console.log(error)
       this.errored = true
     })
      .finally();
-
-
-
    },
  }
 
@@ -319,18 +258,6 @@ let history_types = {
 
 </script>
 <style>
-
-
-@media screen and (max-width: 599px) {
-  .q-breadcrumbs {
-    font-size: 10px;
-  }
-
-  .q-btn {
-    font-size:12px;
-    padding: 5px;
-  }
-}
 
 
 </style>

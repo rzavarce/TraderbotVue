@@ -33,3 +33,18 @@
 
 }
 
+  
+
+ .add_card_button {
+
+  height:100px; 
+  width: 100px; 
+  margin: 30%; 
+  padding-top: 5px; 
+  border-radius: 50%; 
+  background-color: #04AA6D; 
+  cursor: pointer;
+
+ }
+
+

@@ -6,9 +6,9 @@
         <div class="row" style="background-color:white;">
           <div class="col-xs-12 col-sm-6">
             <div class="q-pa-md q-gutter-sm">
-              <span class="text-h4 text-indigo-8">BTC Strategies Update</span>
+              <span class="text-h4 text-indigo-8">ETH Strategies Add</span>
               <br>
-              <span class="text-subtitle2">BTC Strategies Adminitration.</span>
+              <span class="text-subtitle2">ETH Strategies Adminitration.</span>
             </div>
           </div>
           <div class="col-xs-12 col-sm-6">
@@ -23,8 +23,8 @@
                 </template>
 
                 <q-breadcrumbs-el label="Dashboard" icon="home" to="/Dashboard" />
-                <q-breadcrumbs-el label="Strategies" icon="admin_panel_settings" to="/Strategies/BTC/List" />
-                <q-breadcrumbs-el label="Bitcoin" icon="admin_panel_settings" />
+                <q-breadcrumbs-el label="Strategies" icon="admin_panel_settings" to="/Strategies/ETH/List" />
+                <q-breadcrumbs-el label="Etherium" icon="admin_panel_settings" />
               </q-breadcrumbs>
             </div>
           </div>
@@ -146,10 +146,10 @@
               <div class="col">
                 <div class="row justify-around" style="margin-right: 20px;">
 
-                  <div class="rules_label">Bull Zone Range</div>                          
+                  <div class="rules_label">Bull RSI Range</div>                          
 
                   <q-range
-                  v-model="strategy.bull_zone_range"
+                  v-model="strategy.bull_rsi_range"
                   :min="0"
                   :max="100"
                   :step="5"
@@ -166,12 +166,29 @@
                   </div>
                 </div>
 
+
                 <div class="row justify-around" style="margin-right: 20px;">
 
-                  <div class="rules_label">Bull Mod Range</div>                          
+                  <div class="rules_label">Bull RSI Period</div>                          
+
+                  <q-slider
+                  v-model="strategy.bull_rsi_period"
+                  :min="0"
+                  :max="10"
+                  label                  
+                  label-always                  
+                  snap
+                  color="purple-8"
+                  />
+
+                </div>
+
+                <div class="row justify-around" style="margin-right: 20px;">
+
+                  <div class="rules_label">Bull Stoch Range</div>                          
 
                   <q-range
-                  v-model="strategy.bull_mod_range"
+                  v-model="strategy.bull_stoch_range"
                   :min="0"
                   :max="10"
                   :step="1"
@@ -188,22 +205,6 @@
                   </div>
                 </div>
 
-                <div class="row justify-around" style="margin-right: 20px;">
-
-                  <div class="rules_label">Bull RSI Period</div>                          
-
-                  <q-slider
-                  id="bull_rsi_period"
-                  v-model="strategy.bull_rsi_period"
-                  :min="0"
-                  :max="10"
-                  label                  
-                  label-always                  
-                  snap
-                  color="purple-8"
-                  />
-
-                </div>
 
 
               </div>
@@ -211,10 +212,10 @@
               <div class="col">
                 <div class="row justify-around " style="margin-left: 20px;">
 
-                  <div class="rules_label">Bear Zone Range</div>                          
+                  <div class="rules_label">Bear RSI Range</div>                          
 
                   <q-range
-                  v-model="strategy.bear_zone_range"
+                  v-model="strategy.bear_rsi_range"
                   :min="0"
                   :max="100"
                   :step="5"
@@ -231,12 +232,30 @@
                  </div>
                </div>
 
+              <div class="row justify-around" style="margin-left: 20px;">
+
+                <div class="rules_label">Bear RSI Period</div>                          
+
+                <q-slider
+                v-model="strategy.bear_rsi_period"
+                :min="0"
+                :max="10"
+                label                  
+                label-always                  
+                snap
+                color="teal-5"
+                />
+
+              </div>
+
+
+
                <div class="row justify-around" style="margin-left: 20px;">
 
-                <div class="rules_label">Bear Mod Range</div>                          
+                <div class="rules_label">Bear Stoch Range</div>                          
 
                 <q-range
-                v-model="strategy.bear_mod_range"
+                v-model="strategy.bear_stoch_range"
                 :min="0"
                 :max="10"
                 :step="1"
@@ -253,23 +272,6 @@
                 </div>
               </div>
 
-              <div class="row justify-around" style="margin-left: 20px;">
-
-                <div class="rules_label">Bear RSI Period</div>                          
-
-                <q-slider
-                id="bear_rsi_period"
-                v-model="strategy.bear_rsi_period"
-                :min="0"
-                :max="10"
-                label                  
-                label-always                  
-                snap
-                color="teal-5"
-                />
-
-              </div>
-
 
             </div>
 
@@ -279,74 +281,58 @@
 
             <div class="col" style="margin-right: 20px;">
 
-              <div class="zone_label">EMA</div>
+              <div class="zone_label">EMA Fast</div>
               <br>
-              <q-range
-              v-model="strategy.ema_zone_range"
-              :min="0"
-              :max="100"
-              :step="5"
-              label
-              drag-range
-              markers
-              marker-labels
-              label-always
-              snap
-              color="red-10"
-              />
-              <div color="" class="q-mb-lg">
-               <!-- Zone Selected: {{ strategy.ema_zone_range.min }} to {{ strategy.ema_zone_range.max }} (0 to 100, step 5) -->
-             </div>
+              <q-slider
+                v-model="strategy.ema_fast"
+                :min="0"
+                :max="10"
+                label                  
+                label-always                  
+                snap
+                color="red-8"
+                />
+
 
 
            </div>
            <q-separator vertical inset></q-separator>
-           <div class="col" style="margin: 0px 20px;">
-            <div class="zone_label">ADX</div>
-            <br>
-            <q-range
-            v-model="strategy.adx_zone_range"
-            :min="0"
-            :max="100"
-            :step="5"
-            label
-            drag-range
-            markers
-            marker-labels
-            label-always
-            snap
-            color="red-10"
-            />
-            <div color="" class="q-mb-lg">
-              <!-- Zone Selected: {{ strategy.adx_zone_range.min }} to {{ strategy.adx_zone_range.max }} (0 to 100, step 5) -->
-            </div>
-            <br>
-            <q-slider
-            v-model="strategy.adx_period"
-            :min="0"
-            :max="10"
-            label                  
-            label-always                  
-            snap
-            color="red-8"
-            />
+
+           <div class="col" style="margin-left: 20px; margin-right: 20px;">
+
+              <div class="zone_label">EMA Low</div>
+              <br>
+              <q-slider
+                v-model="strategy.ema_slow"
+                :min="0"
+                :max="10"
+                label                  
+                label-always                  
+                snap
+                color="red-8"
+                />
 
 
-          </div>
-          <q-separator vertical inset></q-separator>
-          <div class="col" style="margin-left: 20px;">
-            <div class="zone_label">RSI</div>
-            <br>
-            <q-slider
-            v-model="strategy.rsi_period"
-            :min="0"
-            :max="10"
-            label                  
-            label-always                  
-            snap
-            color="red-7"
-            />
-          </div>
+
+           </div>
+           <q-separator vertical inset></q-separator>
+
+           <div class="col" style="margin-left: 20px;">
+
+              <div class="zone_label">EMA Trend</div>
+              <br>
+              <q-slider
+                v-model="strategy.ema_trend"
+                :min="0"
+                :max="10"
+                label                  
+                label-always                  
+                snap
+                color="red-8"
+                />
+
+           </div>
+           
 
         </div>
 
@@ -520,7 +506,7 @@
   <div class="q-mt-md" style="margin:20px;">
     <q-btn label="Submit" icon="send" type="submit"  color="primary"/>
     <q-btn label="Reset" icon="restore" type="reset" color="secundary" flat class="q-ml-sm" />
-    <q-btn label="Cancel" icon="cancel_schedule_send" type="button" color="red" flat class="q-ml-sm" to="/Strategies/BTC/List" />
+    <q-btn label="Cancel" icon="cancel_schedule_send" type="button" color="red" flat class="q-ml-sm" to="/Strategies/ETH/List"  />
   </div>
 </div>
 </q-form>
@@ -556,30 +542,28 @@
 
         let form_data = {
           "title": this.strategy.title,
-          "currency": this.strategy.currency,
+          "currency": this.strategy.currency.value,
           "status": this.strategy.status,
           "lote_level": this.strategy.lote_level,
           "stop_loss": this.strategy.stop_loss,
           
-          "bear_zone_high": this.strategy.bear_zone_range.max,
-          "bear_zone_low": this.strategy.bear_zone_range.min,
-          "bull_zone_low": this.strategy.bull_zone_range.min,
-          "bull_zone_high": this.strategy.bull_zone_range.max,
-
-          "bull_mod_low": this.strategy.bull_mod_range.min,
-          "bull_mod_high": this.strategy.bull_mod_range.max,
-          "bear_mod_low": this.strategy.bear_mod_range.min,
-          "bear_mod_high": this.strategy.bear_mod_range.max,
-
+          "bull_sell_rsi": this.strategy.bull_rsi_range.max,
+          "bull_buy_rsi": this.strategy.bull_rsi_range.min,
           "bull_rsi_period": this.strategy.bull_rsi_period,
+
+          "bear_buy_rsi": this.strategy.bear_rsi_range.min,
+          "bear_sell_rsi": this.strategy.bear_rsi_range.max,
           "bear_rsi_period": this.strategy.bear_rsi_period,
 
-          "ema_large": this.strategy.ema_zone_range.max,
-          "ema_short": this.strategy.ema_zone_range.min,
-          "adx_large": this.strategy.adx_zone_range.max,
-          "adx_short": this.strategy.adx_zone_range.min,
-          "adx_period": this.strategy.adx_period,
-          "rsi_period": this.strategy.rsi_period,
+          "bull_buy_stoch": this.strategy.bull_stoch_range.min,
+          "bull_sell_stoch": this.strategy.bull_stoch_range.max,
+          "bear_buy_stoch": this.strategy.bear_stoch_range.min,
+          "bear_sell_stoch": this.strategy.bear_stoch_range.max,         
+
+          "ema_fast": this.strategy.ema_fast,
+          "ema_slow": this.strategy.ema_slow,
+          "ema_trend": this.strategy.ema_trend,
+
           "stochrsi_rsi_period": this.strategy.stochrsi_rsi_period,
           "stochrsi_smooth_k": this.strategy.stochrsi_smooth_k,
           "stochrsi_smooth_d": this.strategy.stochrsi_smooth_d, 
@@ -588,10 +572,8 @@
           "stochrsi_low": this.strategy.stochrsi_low,
         }
 
-
-
         axios
-        .put(process.env.ENV_API_URL + '/strategies/BTC/Edit/' + this.$route.params.id +'/',
+        .post(process.env.ENV_API_URL + '/strategies/ETH/Add/',
           form_data)
         .then(
           response => {
@@ -624,67 +606,65 @@
             
             Loading.hide();
 
-          }). catch ((err) => {
-            console.log (err)
+          }), 
+        (error) => {
+          console.log(error);
 
-            Loading.hide();
+          Loading.hide();
 
-            this.$q.notify({
-              color: 'red-5',
-              textColor: 'white',
-              icon: 'warning',
-              message: 'Error: Somethings has been bad.'
-            });
-          })
+          this.$q.notify({
+            color: 'red-5',
+            textColor: 'white',
+            icon: 'warning',
+            message: 'Error: Somethings has been bad.'
+          });
 
+        }
       },
 
       onReset:function() {
 
         this.strategy = {
-          "title": this.strategy.title,
-          "currency": this.strategy.currency.name,
-          "status": this.strategy.status,
-          "lote_level": this.strategy.lote_level,
-          "stop_loss": this.strategy.stop_loss,
-          "bull_zone_range":{
-            max: this.strategy.bull_zone_high,
-            min: this.strategy.bull_zone_low
+          "title":"",
+          "currency":"Etherium",
+          "status":false,
+          "lote_level":50,
+          "stop_loss":10,
+          "bull_rsi_range":{
+            min: 20,
+            max: 60
           },
-          "bear_zone_range":{
-            max: this.strategy.bear_zone_high,
-            min: this.strategy.bear_zone_low
+          "bear_rsi_range":{
+            min: 20,
+            max: 60
           },
           "bull_mod_range":{
-            max: this.strategy.bull_mod_high,
-            min: this.strategy.bull_mod_low
+            min: 3,
+            max: 6
           },
-          "bear_mod_range":{
-            max: this.strategy.bear_mod_high,
-            min: this.strategy.bear_mod_low
+          "bull_stoch_range":{
+            min: 3,
+            max: 6
           },
-          "ema_zone_range":{
-            max: this.strategy.ema_large,
-            min: this.strategy.ema_short
+          "bear_stoch_range":{
+            min: 3,
+            max: 6
           },
-          "adx_zone_range":{
-            max: this.strategy.adx_large,
-            min: this.strategy.adx_short
-          },
-          "bull_rsi_period": this.strategy.bull_rsi_period,
-          "bear_rsi_period": this.strategy.bear_rsi_period,
-          "adx_period": this.strategy.adx_period,
-          "rsi_period": this.strategy.rsi_period,
-          "stochrsi_rsi_period": this.strategy.stochrsi_rsi_period,
-          "stochrsi_smooth_k": this.strategy.stochrsi_smooth_k,
-          "stochrsi_smooth_d": this.strategy.stochrsi_smooth_d, 
-          "stochrsi_period": this.strategy.stochrsi_period,
-          "stochrsi_high": this.strategy.stochrsi_high,
-          "stochrsi_low": this.strategy.stochrsi_low,
-
+          "bull_rsi_period": 5,
+          "bear_rsi_period": 5,
+          "ema_fast": 5,
+          "ema_slow": 5,
+          "ema_fast": 5,
+          "ema_slow": 5,
+          "ema_trend": 5,
+          "stochrsi_rsi_period": 5,
+          "stochrsi_smooth_k": 5,
+          "stochrsi_smooth_d": 5, 
+          "stochrsi_period": 5,
+          "stochrsi_high": 5,
+          "stochrsi_low": 5,
 
         }
-        
         document.body.scrollTop = 0; // For Safari
         document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 
@@ -694,7 +674,7 @@
     mounted () {
 
      axios
-     .get(process.env.ENV_API_URL + '/strategies/BTC/Edit/' + this.$route.params.id +'/')
+     .get(process.env.ENV_API_URL + '/strategies/ETH/Add/')
      .then(response => {
 
       let results = [];
@@ -706,53 +686,47 @@
       }
       this.currencies_list = results
 
-      this.primitive = {
-          "title": response.data.strategy[0].title,
-          "currency": { label: "Bitcoin", value: 3, short: "BTC" },
-          "status": response.data.strategy[0].status,
-          "lote_level": response.data.strategy[0].lote_level,
-          "stop_loss": response.data.strategy[0].stop_loss,
-          "bull_zone_range":{
-            max: response.data.strategy[0].bull_zone_high,
-            min: response.data.strategy[0].bull_zone_low
-          },
-          "bear_zone_range":{
-            max: response.data.strategy[0].bear_zone_high,
-            min: response.data.strategy[0].bear_zone_low
-          },
-          "bull_mod_range":{
-            max: response.data.strategy[0].bull_mod_high,
-            min: response.data.strategy[0].bull_mod_low
-          },
-          "bear_mod_range":{
-            max: response.data.strategy[0].bear_mod_high,
-            min: response.data.strategy[0].bear_mod_low
-          },
-          "ema_zone_range":{
-            max: response.data.strategy[0].ema_large,
-            min: response.data.strategy[0].ema_short
-          },
-          "adx_zone_range":{
-            max: response.data.strategy[0].adx_large,
-            min: response.data.strategy[0].adx_short
-          },
-          "bull_rsi_period": response.data.strategy[0].bull_rsi_period,
-          "bear_rsi_period": response.data.strategy[0].bear_rsi_period,
-          "adx_period": response.data.strategy[0].adx_period,
-          "rsi_period": response.data.strategy[0].rsi_period,
-          "stochrsi_rsi_period": response.data.strategy[0].stochrsi_rsi_period,
-          "stochrsi_smooth_k": response.data.strategy[0].stochrsi_smooth_k,
-          "stochrsi_smooth_d": response.data.strategy[0].stochrsi_smooth_d, 
-          "stochrsi_period": response.data.strategy[0].stochrsi_period,
-          "stochrsi_high": response.data.strategy[0].stochrsi_high,
-          "stochrsi_low": response.data.strategy[0].stochrsi_low,
+      this.strategy = {
+        "title":"",
+        "currency":{ label: "Etherium", value: 4, short: "ETH" },
+        "status":false,
+        "lote_level":50,
+        "stop_loss":10,
+        "bull_rsi_range":{
+          min: 20,
+          max: 60
+        },
+        "bear_rsi_range":{
+          min: 20,
+          max: 60
+        },
+        "bull_mod_range":{
+          min: 3,
+          max: 6
+        },
+        "bull_stoch_range":{
+          min: 3,
+          max: 6
+        },
+        "bear_stoch_range":{
+          min: 3,
+          max: 6
+        },
+        "bull_rsi_period": 5,
+        "bear_rsi_period": 5,
+        "ema_fast": 5,
+        "ema_slow": 5,
+        "ema_fast": 5,
+        "ema_slow": 5,
+        "ema_trend": 5,
+        "stochrsi_rsi_period": 5,
+        "stochrsi_smooth_k": 5,
+        "stochrsi_smooth_d": 5, 
+        "stochrsi_period": 5,
+        "stochrsi_high": 5,
+        "stochrsi_low": 5,
 
-
-        }
-
-        this.strategy = this.primitive
-
-      console.log(this.strategy);
+      }
 
       let history = response.data.strategies_history
 
@@ -771,7 +745,6 @@
 
     })
      .catch(error => {
-
       this.errored = true
     })
      .finally();

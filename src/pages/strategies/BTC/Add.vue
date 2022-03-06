@@ -6,7 +6,7 @@
         <div class="row" style="background-color:white;">
           <div class="col-xs-12 col-sm-6">
             <div class="q-pa-md q-gutter-sm">
-              <span class="text-h4 text-indigo-8">BTC Strategies Config</span>
+              <span class="text-h4 text-indigo-8">BTC Strategies Add</span>
               <br>
               <span class="text-subtitle2">BTC Strategies Adminitration.</span>
             </div>
@@ -23,7 +23,7 @@
                 </template>
 
                 <q-breadcrumbs-el label="Dashboard" icon="home" to="/Dashboard" />
-                <q-breadcrumbs-el label="Strategies" icon="admin_panel_settings" to="/Strategies" />
+                <q-breadcrumbs-el label="Strategies" icon="admin_panel_settings" to="/Strategies/BTC/List" />
                 <q-breadcrumbs-el label="Bitcoin" icon="admin_panel_settings" />
               </q-breadcrumbs>
             </div>
@@ -69,6 +69,7 @@
             :options="currencies_list"
             behavior="menu"
             lazy-rules
+            disable
             :rules="[ val => val && val != null || 'Currency is required.']"
             />
 
@@ -517,7 +518,7 @@
   <div class="q-mt-md" style="margin:20px;">
     <q-btn label="Submit" icon="send" type="submit"  color="primary"/>
     <q-btn label="Reset" icon="restore" type="reset" color="secundary" flat class="q-ml-sm" />
-    <q-btn label="Cancel" icon="cancel_schedule_send" type="button" color="red" flat class="q-ml-sm" :to="{name: 'dashboard'}" />
+    <q-btn label="Cancel" icon="cancel_schedule_send" type="button" color="red" flat class="q-ml-sm" to="/Strategies/BTC/List" />
   </div>
 </div>
 </q-form>
@@ -549,7 +550,7 @@
     methods: {
       onSubmit:function() {
 
-        // Loading.show();
+        Loading.show();
 
         let form_data = {
           "title": this.strategy.title,
@@ -641,7 +642,7 @@
 
         this.strategy = {
           "title":"",
-          "currency":"",
+          "currency":"Bitcoin",
           "status":false,
           "lote_level":50,
           "stop_loss":10,
@@ -709,7 +710,7 @@
 
       this.primitive = {
         "title":"",
-        "currency":"",
+        "currency":{ label: "Bitcoin", value: 3, short: "BTC" },
         "status":false,
         "lote_level":50,
         "stop_loss":10,

@@ -6,7 +6,7 @@
         <div class="row" style="background-color:white;">
           <div class="col-xs-12 col-sm-6">
             <div class="q-pa-md q-gutter-sm">
-              <span class="text-h4 text-indigo-8">Portfolio Add</span>
+              <span class="text-h4 text-indigo-8">Portfolios List</span>
               <br>
               <span class="text-subtitle2">Portfolios Adminitration.</span>
             </div>
@@ -23,8 +23,8 @@
                 </template>
 
                 <q-breadcrumbs-el label="Dashboard" icon="home" to="/Dashboard" />
-                <q-breadcrumbs-el label="Portfolios" icon="admin_panel_settings" to="/Portfolios" />
-                <q-breadcrumbs-el label="Add" icon="admin_panel_settings" />
+                <q-breadcrumbs-el label="Configs" icon="admin_panel_settings" to="/Configs" />
+                <q-breadcrumbs-el label="Strategies" icon="admin_panel_settings" />
               </q-breadcrumbs>
             </div>
           </div>
@@ -117,20 +117,8 @@
           <q-separator style="margin: 20px;"></q-separator>
           <div style="margin: 20px;">
 
-            <div class="row">
-              <div class="col-sm-11">
-                <div class="q-pa-md q-gutter-sm">
-                  <span class="text-h5 text-indigo-8">Portfolio Accounts</span>
-                  <br>
-                  <span class="text-subtitle3">Accounts Adminitration.</span>
-                </div>
-              </div>
-
-                <div class="col-sm-1 right">
-                  <q-btn round @click="addRow()" color="primary" icon="add" ></q-btn>
-                </div>
-            </div>
-
+            <q-btn round @click="addRow()" color="primary" icon="add" ></q-btn>
+            <br><br>
             <q-separator></q-separator>
             <div class="previous"
             v-for="(account, counter) in accounts"
@@ -296,7 +284,13 @@
       avatar: ref(null),
       counter: 0,
       isValid: false,
-      accounts:[]
+      accounts:[{
+        exchange: "",
+        api_key: "",
+        api_secret: "",
+        balance: "",
+        status: false
+      }]
 
     }
   },
@@ -352,7 +346,32 @@
 
     onSubmit () {
 
-      this.isValid = false;
+      console.log("onSubmit");
+
+      console.log(this.portfolio);
+      console.log(this.accounts);
+
+      this.accounts = [
+        {
+          "exchange": {
+              "id": 2,
+              "name": "Bitso",
+              "contact_email": "",
+              "contact_phone_number": "",
+              "website": "https://bitso.com/",
+              "logotype": null,
+              "description": "Send and receive cryptocurrencies between friends from all over the globe.",
+              "status": true,
+              "created_date": "2021-12-29T17:07:21Z",
+              "modified_date": "2021-12-29T17:07:21Z"
+            },
+          "api_key": "sdads",
+          "api_secret": "sdasda",
+          "balance": "1212.12",
+          "status": true
+        }
+      ];
+
 
       let form_data = {
         "title": this.portfolio.title,
@@ -362,10 +381,12 @@
         "accounts": this.accounts,
       }
 
-        Loading.show();
+      console.log(form_data);
+
+        //Loading.show();
 
         axios
-        .post(process.env.ENV_API_URL + '/portfolios/add/', form_data)          
+        .post(process.env.ENV_API_URL + '/portfolios/', form_data)          
         .then(
           response => {
 
@@ -391,26 +412,19 @@
           })
         }
 
+
+
+
+
+
       },
 
       onReset () {
-        this.portfolio = {
-          "title": "",
-          "email": "",
-          "avatar": null,
-          "description": "",
-          "status": false,        
-        }
-
-        this.accounts = [{
-          "exchange": "",
-          "api_key": "",
-          "api_secret": "",
-          "balance": "",
-          "status": false
-        }]
+        console.log("onReset");
 
       }
+
+
 
     },
 
@@ -430,45 +444,6 @@
       this.exchanges_list = results;
 
       console.log(this.exchanges_list);
-
-
-      this.portfolio = {
-        "title": "xxxxxxxxxx",
-        "email": "rz@ererer.com",
-        "avatar": null,
-        "description": "cvcvcvcvcvcv",
-        "status": false,        
-      };
-
-      this.accounts = [{
-        "exchange": 1,
-        "api_key": "xxxxxxxxx",
-        "api_secret": "yyyyyyyyyyyyy",
-        "balance": 121.21,
-        "status": false
-      }];
-
-      /*
-      
-      this.portfolio = {
-        "title": "",
-        "email": "",
-        "avatar": null,
-        "description": "",
-        "status": false,        
-      }
-
-      this.accounts = [{
-        "exchange": "",
-        "api_key": "",
-        "api_secret": "",
-        "balance": "",
-        "status": false
-      }]
-
-      */
-
-
 
       let history = response.data.portfolios_history;
       for(i=0; i < history.length; i++){

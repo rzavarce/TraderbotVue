@@ -42,36 +42,30 @@ const routes = [
       {path: '/Configs/Markets', name:"config_markets", component: () => import('pages/configs/Markets.vue'), beforeEnter: ifAuthenticated,},
 
 
-      {path: '/Strategies', name:"strategies_index", component: () => import('pages/strategies/Index.vue'), beforeEnter: ifAuthenticated,},
-      {path: '/Strategies/List', name:"strategies_list", component: () => import('pages/strategies/List.vue'), beforeEnter: ifAuthenticated,},
+      // {path: '/Strategies', name:"strategies_index", component: () => import('pages/strategies/Index.vue'), beforeEnter: ifAuthenticated,},
+      // {path: '/Strategies/List', name:"strategies_list", component: () => import('pages/strategies/List.vue'), beforeEnter: ifAuthenticated,},
       {path: '/Strategies/BTC/List', name:"strategies_btc_list", component: () => import('pages/strategies/BTC/List.vue'), beforeEnter: ifAuthenticated,},
       {path: '/Strategies/BTC/Add', name:"strategies_btc_add", component: () => import('pages/strategies/BTC/Add.vue'), beforeEnter: ifAuthenticated,},
       {path: '/Strategies/BTC/Edit/:id', name:"strategies_btc_edit", component: () => import('pages/strategies/BTC/Edit.vue'), beforeEnter: ifAuthenticated,},
+
+      {path: '/Strategies/ETH/List', name:"strategies_eth_list", component: () => import('pages/strategies/ETH/List.vue'), beforeEnter: ifAuthenticated,},
+      {path: '/Strategies/ETH/Add', name:"strategies_eth_add", component: () => import('pages/strategies/ETH/Add.vue'), beforeEnter: ifAuthenticated,},
+      {path: '/Strategies/ETH/Edit/:id', name:"strategies_eth_edit", component: () => import('pages/strategies/ETH/Edit.vue'), beforeEnter: ifAuthenticated,},
       
-      {path: '/Strategies/Edit', name:"strategies_edit", component: () => import('pages/strategies/Edit.vue'), beforeEnter: ifAuthenticated,},
+      // {path: '/Strategies/Edit', name:"strategies_edit", component: () => import('pages/strategies/Edit.vue'), beforeEnter: ifAuthenticated,},
 
       {path: '/Portfolios/List', name:"portfolios_list", component: () => import('pages/portfolios/List.vue'), beforeEnter: ifAuthenticated,},
-      {path: '/Portfolios/Add', name:"portfolios_add", component: () => import('pages/portfolios/Add.vue'),},
+      {path: '/Portfolios/Add', name:"portfolios_add", component: () => import('pages/portfolios/Add.vue'), beforeEnter: ifAuthenticated,},
+      {path: '/Portfolios/Edit/:id', name:"portfolios_edit", component: () => import('pages/portfolios/Edit.vue'), beforeEnter: ifAuthenticated,},
+      {path: '/Portfolios/Accounts', name:"portfolios_accounts", component: () => import('pages/portfolios/Accounts.vue'), beforeEnter: ifAuthenticated,},
 
+
+      {path: '/Reports/Operations', name:"report_operations", component: () => import('pages/reports/Operations.vue'),},
+      {path: '/Reports/Balances', name:"report_balances", component: () => import('pages/reports/Balances.vue'),},
 
 
       {path: '/Dashboard2', component: () => import('pages/Dashboard2.vue')},
       {path: '/Profile', component: () => import('pages/UserProfile.vue')},
-      {path: '/Map', component: () => import('pages/Map.vue')},
-      {path: '/MapMarker', component: () => import('pages/MapMarker.vue')},
-      {path: '/TreeTable', component: () => import('pages/TreeTable.vue')},
-      {path: '/StreetView', component: () => import('pages/StreetView.vue')},
-      {path: '/Cards', component: () => import('pages/Cards.vue')},
-      {path: '/Tables', component: () => import('pages/Tables.vue')},
-      {path: '/Contact', component: () => import('pages/Contact.vue')},
-      {path: '/Checkout', component: () => import('pages/Checkout.vue')},
-      {path: '/Ecommerce', component: () => import('pages/ProductCatalogues.vue')},
-      {path: '/Pagination', component: () => import('pages/Pagination.vue')},
-      {path: '/Charts', component: () => import('pages/Charts.vue')},
-      {path: '/Calendar', component: () => import('pages/Calendar.vue')},
-      {path: '/Directory', component: () => import('pages/Directory.vue')},
-      {path: '/Footer', component: () => import('pages/Footer.vue')},
-      {path: '/CardHeader', component: () => import('pages/CardHeader.vue')},
 
       // Not completed yet
       // {path: '/Taskboard', component: () => import('pages/TaskBoard.vue')},
@@ -92,10 +86,7 @@ const routes = [
     path: '/Maintenance',
     component: () => import('pages/Maintenance.vue')
   },
-  {
-    path: '/Pricing',
-    component: () => import('pages/Pricing.vue')
-  },
+
   {
     path: '/Login-1',
     component: () => import('pages/Login-1.vue')

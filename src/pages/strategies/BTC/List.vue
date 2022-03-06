@@ -6,9 +6,9 @@
         <div class="row" style="background-color:white;">
           <div class="col-xs-12 col-sm-6">
             <div class="q-pa-md q-gutter-sm">
-              <span class="text-h4 text-indigo-8">Strategies Config</span>
+              <span class="text-h4 text-indigo-8">BTC Strategies List</span>
               <br>
-              <span class="text-subtitle2">Strategies Adminitration.</span>
+              <span class="text-subtitle2">BTC Strategies Adminitration.</span>
             </div>
           </div>
           <div class="col-xs-12 col-sm-6">
@@ -23,8 +23,8 @@
                 </template>
 
                 <q-breadcrumbs-el label="Dashboard" icon="home" to="/Dashboard" />
-                <q-breadcrumbs-el label="Configs" icon="admin_panel_settings" to="/Configs" />
-                <q-breadcrumbs-el label="Strategies" icon="admin_panel_settings" />
+                <q-breadcrumbs-el label="Strategies" icon="admin_panel_settings" to="/Strategies/BTC/List" />
+                <q-breadcrumbs-el label="Bitcoin" icon="admin_panel_settings" />
               </q-breadcrumbs>
             </div>
           </div>
@@ -75,10 +75,28 @@
 
 
                   <q-card-actions align="around">
-                    <q-btn round v-on:click='onEdit(strategy.id)' color="primary" icon="edit" ></q-btn>
+                    <q-btn round @click='onEdit(strategy.id)' color="primary" icon="edit" ></q-btn>
                     <q-btn round @click="confirm = true; strategy_id = strategy.id" color="primary" icon="delete" ></q-btn>
                   </q-card-actions>
 
+                </q-card>
+
+              </div>
+
+              <div style="min-width:300px;" class="col-lg-3 col-sm-12 col-xs-12 col-md-3">
+
+                <q-card style="max-width: 300px, min-width: 300px; height: 367px; color:white;">
+                  
+                  <q-card-section class="text-center" style=" padding-top: 50px;">
+
+                    <q-btn class="add_card_button" to="/Strategies/BTC/Add">
+
+                      <span style="font-size:50px; ">+</span>
+
+                    </q-btn>
+
+                  </q-card-section>                 
+                 
                 </q-card>
 
               </div>
@@ -95,8 +113,8 @@
       <q-dialog v-model="confirm" persistent>
         <q-card>
           <q-card-section class="row items-center">
-            <q-avatar icon="signal_wifi_off" color="primary" text-color="white" />
-            <span class="q-ml-sm">You are currently not connected to any network.</span>
+            <q-avatar icon="warning" color="red" text-color="white" />
+            <span class="q-ml-sm error">Are you sure you want to Delete?.</span>
           </q-card-section>
 
           <q-card-actions align="right">
@@ -177,7 +195,7 @@
 
         if (strategies_list[i].currency.logotype){
 
-          logotype =  process.env.ENV_APP_ASSETS + strategies_list[i].currency.logotype;
+          logotype =  strategies_list[i].currency.logotype;
 
         }else{
 
@@ -199,30 +217,6 @@
         
 
       }
-
-      console.log(this.strategies);
-
-      /*
-
-
-      let history = response.data.currencies_history
-
-      for(i=0; i < history.length; i++){
-
-        this.config_history.push({
-          title: history[i].nickname,
-          subtitle: history[i].history_date,
-          side: 'left',
-          desc: history_types[history[i].history_type].desc,
-          color: history_types[history[i].history_type].color,
-          icon: history_types[history[i].history_type].icon
-        })
-
-
-      }
-
-      */
-
 
     })
      .catch(error => {

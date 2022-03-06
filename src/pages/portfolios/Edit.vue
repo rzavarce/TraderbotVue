@@ -6,7 +6,7 @@
         <div class="row" style="background-color:white;">
           <div class="col-xs-12 col-sm-6">
             <div class="q-pa-md q-gutter-sm">
-              <span class="text-h4 text-indigo-8">Portfolio Add</span>
+              <span class="text-h4 text-indigo-8">Portfolios List</span>
               <br>
               <span class="text-subtitle2">Portfolios Adminitration.</span>
             </div>
@@ -24,7 +24,7 @@
 
                 <q-breadcrumbs-el label="Dashboard" icon="home" to="/Dashboard" />
                 <q-breadcrumbs-el label="Portfolios" icon="admin_panel_settings" to="/Portfolios" />
-                <q-breadcrumbs-el label="Add" icon="admin_panel_settings" />
+                <q-breadcrumbs-el label="Edit" icon="admin_panel_settings" />
               </q-breadcrumbs>
             </div>
           </div>
@@ -117,7 +117,7 @@
           <q-separator style="margin: 20px;"></q-separator>
           <div style="margin: 20px;">
 
-            <div class="row">
+           <div class="row">
               <div class="col-sm-11">
                 <div class="q-pa-md q-gutter-sm">
                   <span class="text-h5 text-indigo-8">Portfolio Accounts</span>
@@ -130,7 +130,6 @@
                   <q-btn round @click="addRow()" color="primary" icon="add" ></q-btn>
                 </div>
             </div>
-
             <q-separator></q-separator>
             <div class="previous"
             v-for="(account, counter) in accounts"
@@ -203,7 +202,7 @@
                 />
               </div>
               <div class="col">
-                <q-btn round @click="deleteRow(counter)" color="primary" icon="delete" ></q-btn>
+                <q-btn round @click="deleteRow()" color="primary" icon="delete" ></q-btn>
               </div>
             </div>
             <q-separator></q-separator>
@@ -267,6 +266,20 @@
 </div>
 </q-form>
 
+<q-dialog v-model="confirm" persistent>
+  <q-card>
+    <q-card-section class="row items-center">
+      <q-avatar icon="warning" color="red" text-color="white" />
+      <span class="q-ml-sm error">Are you sure you want to Delete?.</span>
+    </q-card-section>
+
+    <q-card-actions align="right">
+      <q-btn flat label="Delete" color="red" v-on:click='deleteConfirm()' v-close-popup icon="delete" />
+      <q-btn flat label="Cancel" color="primary" v-close-popup icon="cancel_schedule_send" />
+    </q-card-actions>
+  </q-card>
+</q-dialog>
+
 </q-card>
 </q-page>
 </template>
@@ -290,10 +303,12 @@
 
     data() {
      return {
-      portfolio: [],
+      portfolio: {},
       portfolios_history: [],   
       exchanges_list:[],
+      confirm: false,
       avatar: ref(null),
+      index: 0,
       counter: 0,
       isValid: false,
       accounts:[]
@@ -304,6 +319,11 @@
   methods: {
 
     addRow() {   
+
+      console.log(this.accounts);
+      console.log(this.counter);
+      console.log(this.accounts[this.counter]);
+
 
       if (this.accounts[this.counter].exchange == "" || this.accounts[this.counter].api_key == "" || this.accounts[this.counter].api_secret == "" || this.accounts[this.counter].balance == "" ){
 
@@ -325,15 +345,48 @@
       }
     },
 
-    deleteRow(index){
-      if(this.counter>0){
+    deleteRow(){
 
-        this.accounts.splice(index, 1);
-        this.counter -= 1;
-        this.isValid = false;
+      console.log(this.index);
+      console.log(this.counter);
 
-      }
+
+      
+
+      if (this.accounts[this.counter].exchange == "" || this.accounts[this.counter].api_key == "" || this.accounts[this.counter].api_secret == "" || this.accounts[this.counter].balance == "" ){
+
+        if(this.counter>0){
+          this.accounts.splice(this.counter, 1);
+          this.counter -= 1;
+        }
+         this.isValid = false;
+
+      }else{
+
+        this.confirm = true;
+
+
+      }     
+
+      
+
     },
+
+
+    deleteConfirm(){
+
+
+      if(this.counter>0){
+        this.accounts.splice(this.counter, 1);
+        this.counter -= 1;
+      }
+
+      this.isValid = false;
+
+
+
+    },
+
 
     onRejected (entries) {
       if (entries.length > 0) {
@@ -352,9 +405,15 @@
 
     onSubmit () {
 
-      this.isValid = false;
+      console.log("onSubmit");
+
+      console.log(this.portfolio);
+      console.log(this.accounts);
+
+
 
       let form_data = {
+        "id": this.portfolio.id,
         "title": this.portfolio.title,
         "email": this.portfolio.email,
         "avatar": this.portfolio.acatar,
@@ -362,10 +421,13 @@
         "accounts": this.accounts,
       }
 
-        Loading.show();
+      console.log(form_data);
 
-        axios
-        .post(process.env.ENV_API_URL + '/portfolios/add/', form_data)          
+
+        //Loading.show();
+
+      axios
+        .put(process.env.ENV_API_URL + '/portfolios/edit/'+ this.$route.params.id +'/', form_data)          
         .then(
           response => {
 
@@ -394,30 +456,18 @@
       },
 
       onReset () {
-        this.portfolio = {
-          "title": "",
-          "email": "",
-          "avatar": null,
-          "description": "",
-          "status": false,        
-        }
-
-        this.accounts = [{
-          "exchange": "",
-          "api_key": "",
-          "api_secret": "",
-          "balance": "",
-          "status": false
-        }]
+        console.log("onReset");
 
       }
+
+
 
     },
 
     mounted () {
 
      axios
-     .get(process.env.ENV_API_URL + '/portfolios/add/')
+     .get(process.env.ENV_API_URL + '/portfolios/edit/'+ this.$route.params.id +'/')
      .then(response => {
 
       let results = [];
@@ -431,44 +481,25 @@
 
       console.log(this.exchanges_list);
 
+      this.portfolio = response.data.portfolio_data[0]
 
-      this.portfolio = {
-        "title": "xxxxxxxxxx",
-        "email": "rz@ererer.com",
-        "avatar": null,
-        "description": "cvcvcvcvcvcv",
-        "status": false,        
-      };
 
-      this.accounts = [{
-        "exchange": 1,
-        "api_key": "xxxxxxxxx",
-        "api_secret": "yyyyyyyyyyyyy",
-        "balance": 121.21,
-        "status": false
-      }];
+      options = response.data.accounts_data;
+      for(i=0; i<options.length; i++){
 
-      /*
-      
-      this.portfolio = {
-        "title": "",
-        "email": "",
-        "avatar": null,
-        "description": "",
-        "status": false,        
+        this.accounts.push({
+          "id":options[i].id,
+          "exchange":options[i].exchange.id,
+          "api_key":options[i].api_key,
+          "api_secret":options[i].api_secret,
+          "balance": options[i].balance,
+          "status": options[i].status,
+        });
       }
 
-      this.accounts = [{
-        "exchange": "",
-        "api_key": "",
-        "api_secret": "",
-        "balance": "",
-        "status": false
-      }]
+      // this.counter = this.accounts.length;
 
-      */
-
-
+      console.log(this.accounts);
 
       let history = response.data.portfolios_history;
       for(i=0; i < history.length; i++){
