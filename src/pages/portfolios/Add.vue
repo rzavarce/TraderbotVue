@@ -434,7 +434,7 @@
 
       this.portfolio = {
         "title": "xxxxxxxxxx",
-        "email": "rz@ererer.com",
+        "email": "rogerzavarce@gmail.com",
         "avatar": null,
         "description": "cvcvcvcvcvcv",
         "status": false,        

@@ -214,6 +214,7 @@ content-class="bg-primary text-white"
   <q-expansion-item
   icon="admin_panel_settings"
   label="Configs Bot"
+  v-show="(userData.type_user>=3)"
   >
   <q-item to="/Configs/General" class="q-ml-xl" active-class="q-item-no-link-highlighting">
     <q-item-section avatar>
@@ -251,6 +252,7 @@ content-class="bg-primary text-white"
 <q-expansion-item
 icon="manage_accounts"
 label="Strategies"
+v-show="(userData.type_user>=3)"
 >
 <q-expansion-item
   icon="receipt"
@@ -307,6 +309,7 @@ label="Strategies"
 <q-expansion-item
 icon="manage_accounts"
 label="Portfolios"
+v-show="(userData.type_user>=2)"
 >
 <q-item to="/Portfolios/List" class="q-ml-xl" active-class="q-item-no-link-highlighting">
   <q-item-section avatar>
@@ -470,7 +473,82 @@ content-class="bg-grey-3"
 >
 <q-scroll-area class="fit">
   <div class="q-px-lg q-pb-md">
-    <card-time-line2 />
+    <q-timeline color="secondary">
+      <q-timeline-entry heading>
+        Timeline heading
+      </q-timeline-entry>
+
+      <q-timeline-entry
+        title="Event Title"
+        subtitle="February 22, 1986"
+      >
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
+      </q-timeline-entry>
+
+      <q-timeline-entry
+        title="Event Title"
+        subtitle="February 21, 1986"
+        icon="delete"
+      >
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
+      </q-timeline-entry>
+
+      <q-timeline-entry heading>
+        November, 2017
+      </q-timeline-entry>
+
+      <q-timeline-entry
+        title="Event Title"
+        subtitle="February 22, 1986"
+        avatar="https://cdn.quasar.dev/img/avatar2.jpg"
+      >
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
+      </q-timeline-entry>
+
+      <q-timeline-entry
+        title="Event Title"
+        subtitle="February 22, 1986"
+      >
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
+      </q-timeline-entry>
+
+      <q-timeline-entry
+        title="Event Title"
+        subtitle="February 22, 1986"
+        color="orange"
+        icon="done_all"
+      >
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
+      </q-timeline-entry>
+
+      <q-timeline-entry
+        title="Event Title"
+        subtitle="February 22, 1986"
+      >
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
+      </q-timeline-entry>
+
+      <q-timeline-entry
+        title="Event Title"
+        subtitle="February 22, 1986"
+      >
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
+      </q-timeline-entry>
+    </q-timeline>
   </div>
 </q-scroll-area>
     <!--
@@ -519,11 +597,8 @@ content-class="bg-grey-3"
 
   import axios from 'axios';
 
-  import Messages from "./Messages";
-
   import store from '../store';
   import Vue from 'vue';
-
 
 
   export default {
@@ -533,15 +608,13 @@ content-class="bg-grey-3"
         miniActive: true,
         miniState: false,
         drawerRight: false,
-        userData: '',
+        userData: {},
         vm: undefined, 
         text: ''
       }
     },
     components: {
-      Messages,
-      CardTimeLine2: () =>  import('components/cards/CardTimeLine2'),
-
+      
     },
     mounted () {
       let axiosConfig = {
@@ -555,22 +628,8 @@ content-class="bg-grey-3"
       withCredentials: true
     };
 
-    /*
-    axios
-    .get(process.env.ENV_API_URL + '/session/', axiosConfig)
-    .then(response => {
-        //this.info = response.data.bpi
-        console.log(response.data[0]["username"]);
+    this.userData = JSON.parse(localStorage.getItem('user_data'));
 
-        this.userData = response.data[0];
-
-      })
-    .catch(error => {
-      console.log(error)
-      this.errored = true
-    })
-    .finally(() => this.loading = false)
-    */
   },
   methods: {
 
@@ -612,7 +671,7 @@ content-class="bg-grey-3"
     logout () {
 
      axios
-     .post(process.env.ENV_API_URL + "/authentication/logout/", {})
+     .post(process.env.ENV_API_URL + "/logout/", {})
         //.post(this.$router.dashboard, payload)
         .then((response) => {
 
@@ -620,6 +679,7 @@ content-class="bg-grey-3"
           console.log("pasoooooo");
           //this.$router.push({ name: "login" });
           this.$router.go('/')
+          localStorage.clear();
 
 
 

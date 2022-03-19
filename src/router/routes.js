@@ -23,8 +23,17 @@ const routes = [
     component: () => import('pages/Login.vue')
   },
   {
+    path: '/Register/:portfolio_id',
+    component: () => import('pages/RegisterUser.vue')
+  },
+  {
     path: '/Register',
     component: () => import('pages/RegisterUser.vue')
+  },
+
+  {
+    path: '/PasswordReset/:token',
+    component: () => import('pages/PasswordReset.vue')
   },
 
 
@@ -42,8 +51,6 @@ const routes = [
       {path: '/Configs/Markets', name:"config_markets", component: () => import('pages/configs/Markets.vue'), beforeEnter: ifAuthenticated,},
 
 
-      // {path: '/Strategies', name:"strategies_index", component: () => import('pages/strategies/Index.vue'), beforeEnter: ifAuthenticated,},
-      // {path: '/Strategies/List', name:"strategies_list", component: () => import('pages/strategies/List.vue'), beforeEnter: ifAuthenticated,},
       {path: '/Strategies/BTC/List', name:"strategies_btc_list", component: () => import('pages/strategies/BTC/List.vue'), beforeEnter: ifAuthenticated,},
       {path: '/Strategies/BTC/Add', name:"strategies_btc_add", component: () => import('pages/strategies/BTC/Add.vue'), beforeEnter: ifAuthenticated,},
       {path: '/Strategies/BTC/Edit/:id', name:"strategies_btc_edit", component: () => import('pages/strategies/BTC/Edit.vue'), beforeEnter: ifAuthenticated,},
@@ -62,9 +69,11 @@ const routes = [
 
       {path: '/Reports/Operations', name:"report_operations", component: () => import('pages/reports/Operations.vue'),},
       {path: '/Reports/Balances', name:"report_balances", component: () => import('pages/reports/Balances.vue'),},
+      {path: '/Reports/Test', name:"report_test", component: () => import('pages/reports/Test.vue'),},
+      {path: '/Reports/Test3', name:"report_test3", component: () => import('pages/reports/Test3.vue'),},
 
 
-      {path: '/Dashboard2', component: () => import('pages/Dashboard2.vue')},
+
       {path: '/Profile', component: () => import('pages/UserProfile.vue')},
 
       // Not completed yet
@@ -77,10 +86,6 @@ const routes = [
   {
     path: '/:catchAll(.*)*',
     component: () => import('pages/Error404.vue')
-  },
-  {
-    path: '/Mail',
-    component: () => import('layouts/Mail.vue')
   },
   {
     path: '/Maintenance',

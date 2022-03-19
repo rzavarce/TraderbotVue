@@ -142,6 +142,10 @@ createQuasarApp(createApp, quasarUserOptions)
       
       import(/* webpackMode: "eager" */ 'boot/axios'),
       
+      import(/* webpackMode: "eager" */ 'boot/apexcharts'),
+      
+      import(/* webpackMode: "eager" */ 'boot/tradingvue'),
+      
       import(/* webpackMode: "eager" */ '@quasar/quasar-app-extension-qcalendar/src/boot/register.js'),
       
       import(/* webpackMode: "eager" */ 'quasar-app-extension-qhierarchy/src/boot/register.js')

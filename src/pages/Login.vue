@@ -44,7 +44,7 @@
               />
             </div>
 
-            <p v-if="auth_error" class="error">Authentication error, pleases check your info.</p>
+            <p v-if="auth_error" class="error">{{ auth_error_msg }}</p>
 
 
             <q-card-section>
@@ -111,6 +111,9 @@
 <script>
 import axios from 'axios' 
 import { Base64 } from 'js-base64';
+import { Loading } from 'quasar';
+
+import { LocalStorage } from 'quasar'
 
 
 export default {
@@ -128,6 +131,7 @@ export default {
 
       remember: false,
       auth_error: false,
+      auth_error_msg: "",
       email_error: false,
       password_error: false,
       forgot_password_display: false,
@@ -142,15 +146,16 @@ export default {
 
         if(this.email){
 
+          Loading.show();
+
           const payload = {
               "email": this.email
           }
 
           axios
-            .post(process.env.ENV_API_URL + "password_reset/", payload)
+            .post(process.env.ENV_API_URL + "/password_reset/", payload)
             .then((response) => {
               
-              console.log(response);
 
               this.email='';
               this.forgot_password_error = '';
@@ -162,15 +167,32 @@ export default {
                 message: 'Your password recovery has been submitted'
               }); 
               
+              Loading.hide();
+
               this.toggle();
 
 
           })
           .catch((error) => {
+
+            Loading.hide();
+            
             this.forgot_password_error = 'Your email is incorret, please check and try again';
+
+            this.$q.notify({
+              color: 'red-5',
+              textColor: 'white',
+              icon: 'warning',
+              message: 'Error: Somethings has been bad.'
+            });
+
+
+            
           });
 
         }else{
+          Loading.hide();
+
           this.forgot_password_error = 'Your email is empty';
         }
 
@@ -190,25 +212,28 @@ export default {
 
         }else{
 
+          Loading.show();
+
           const payload = {
             email: this.email,
             password: this.password,
           };
 
           axios
-            .post(process.env.ENV_API_URL + "/authentication/login/", payload)
+            .post(process.env.ENV_API_URL + "/login/", payload)
+            //.post(process.env.ENV_API_URL + "/accounts/login/", payload)
+            //.post(process.env.ENV_API_URL + "/authentication/login/", payload)
             //.post(this.$router.dashboard, payload)
             .then((response) => {
               
               this.$store.state.isAuthenticated = true;
 
-              console.log(response.data.key);
+              localStorage.setItem('user_data', JSON.stringify(response.data.user));
 
               this.$store.state.token = response.data.key;
 
-              console.log(this.$store.state.token);
-
               localStorage.setItem('auth_token', response.data.key);
+
 
               if(this.remember == true){
 
@@ -223,12 +248,24 @@ export default {
 
               }
 
-              //this.$router.push({ name: "dashboard" });              
-              this.$router.push({ name: "config_general" });
+              Loading.hide();
+
+              this.$router.push({ name: "dashboard" });              
+              // this.$router.push({ name: "config_general" });
           })
           .catch((error) => {
+
+            Loading.hide();
             
             this.auth_error = true;
+            this.auth_error_msg = error.response.data.non_field_errors[0];
+
+            this.$q.notify({
+              color: 'red-5',
+              textColor: 'white',
+              icon: 'warning',
+              message: 'Error: Somethings has been bad.'
+            });
 
           });
 

@@ -23,8 +23,8 @@
                 </template>
 
                 <q-breadcrumbs-el label="Dashboard" icon="home" to="/Dashboard" />
-                <q-breadcrumbs-el label="Configs" icon="admin_panel_settings" to="/Configs" />
-                <q-breadcrumbs-el label="Strategies" icon="admin_panel_settings" />
+                <q-breadcrumbs-el label="Portfolios" icon="admin_panel_settings" to="/Porfolios" />
+                <q-breadcrumbs-el label="List" icon="admin_panel_settings" />
               </q-breadcrumbs>
             </div>
           </div>

@@ -11,7 +11,7 @@
           <q-card-section>
             <div class="text-center q-pt-lg">
               <div class="col text-h6 ellipsis">
-                Register User
+                Password Reset
               </div>
             </div>
           </q-card-section>
@@ -21,25 +21,11 @@
             >
 
             <q-input
-            filled
-            v-model="username"
-            label="Username"
-            lazy-rules
-            />
-          
-            <q-input
-            filled
-            v-model="email"
-            label="Email"
-            />        
-
-            <q-input
             type="password"
             filled
             v-model="password"
             label="New Password"
             lazy-rules
-
             />
 
             <q-input
@@ -48,30 +34,18 @@
             v-model="password_confirmation"
             label="Renew Password"
             lazy-rules
-
             />
 
             <q-input
+            type="password"
             filled
-            v-model="first_name"
-            label="First name"
+            v-model="token"
             lazy-rules
+            style="display:none;"
             />
-            
-            <q-input
-            filled
-            v-model="last_name"
-            label="Last name"
-            lazy-rules
-            />
+
             <p v-html="form_validation_message" class="error"></p>
 
-            <q-input
-            filled
-            v-model="portfolio_id"
-            label="Portfolio Id"
-            lazy-rules
-            />
 
             <div>
 
@@ -83,7 +57,7 @@
         </q-card-section>
         <q-card-section v-if="!register_form_display">
           <q-banner class="bg-primary text-white">
-              <p>Account has been created, please check your inbox mail to activate.</p>
+              <p>Password has benn updated, go to login.</p>
           </q-banner>
         </q-card-section>
         <q-card-section>
@@ -113,41 +87,23 @@ import { Loading } from 'quasar';
 export default {
   data () {
     return {
-      /*
-      username: '',
-      email: '',
       password: '',
-      re_password: '',
-      first_name: '',
-      last_name: '',
-      */
-      username: 'rzavarce',
-      email: 'rogerzavarce@gmail.com',
-      password: 'raza.1234',
-      password_confirmation: 'raza.1234',
-      first_name: 'Roger',
-      last_name: 'Zavarce',
+      password_confirmation: '',
+      token: this.$route.query.token,
       password_error: false,
       register_form_display: true,
       form_validation_message: '',
-      portfolio_id: ''
     }
   },
-  mounted () {
-
-    this.portfolio_id = this.$route.params.portfolio_id
-
+  mounted(){
+   this.token=this.$route.params.token;
   },
   methods: {
 
       send_register_form(){
 
 
-        if(this.username == ''){
-          this.form_validation_message = 'Your username is empty';        
-        }else if(this.email == ''){
-          this.form_validation_message = 'Your email is empty';
-        }else if(this.password == ''){
+        if(this.password == ''){
           this.form_validation_message = 'Your New password is empty';        
         }else if(this.password_confirmation == ''){
           this.form_validation_message = 'Your Renew password is empty';
@@ -157,21 +113,16 @@ export default {
           this.form_validation_message = '';
         
           let payload = {
-              "username": this.username,
+
               "password": this.password,
-              "password_confirmation": this.password_confirmation,
-              "email": this.email,
-              "first_name": this.first_name,
-              "last_name": this.last_name,
-              "type_user": 1,
-              "status": 0,
-              "portfolio_id": this.portfolio_id
+              "token": this.token,
+
           }
 
           Loading.show();
 
           axios
-            .post(process.env.ENV_API_URL + "/signup/", payload)
+            .post(process.env.ENV_API_URL + "/password_reset/confirm/", payload)
             .then((response) => {
 
               Loading.hide();
