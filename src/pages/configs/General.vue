@@ -13,7 +13,7 @@
           </div>
           <div class="col-xs-12 col-sm-6">
             <div class="q-pa-md q-gutter-sm">
-              <q-breadcrumbs class="text-grey" align="right">
+              <q-breadcrumbs class="text-black" align="right">
                 <template v-slot:separator>
                   <q-icon
                   size="1.2em"
@@ -24,7 +24,7 @@
 
                 <q-breadcrumbs-el label="Dashboard" icon="home" to="/Dashboard" />
                 <q-breadcrumbs-el label="Configs" icon="admin_panel_settings" to="/Configs" />
-                <q-breadcrumbs-el label="General" icon="admin_panel_settings" />
+                <q-breadcrumbs-el class="text-grey" label="General" icon="admin_panel_settings" />
               </q-breadcrumbs>
             </div>
           </div>
@@ -56,6 +56,7 @@
               hint="Unit 1"
               maxlength="50"
               lazy-rules
+              disable
               :rules="[val => !!val || 'Nickname is required.']"
               />
 

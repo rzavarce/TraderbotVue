@@ -13,7 +13,7 @@
           </div>
           <div class="col-xs-12 col-sm-6">
             <div class="q-pa-md q-gutter-sm">
-              <q-breadcrumbs class="text-grey" align="right">
+              <q-breadcrumbs class="text-black" align="right">
                 <template v-slot:separator>
                   <q-icon
                   size="1.2em"
@@ -23,8 +23,8 @@
                 </template>
 
                 <q-breadcrumbs-el label="Dashboard" icon="home" to="/Dashboard" />
-                <q-breadcrumbs-el label="Strategies" icon="admin_panel_settings" to="/Strategies/BTC/List" />
-                <q-breadcrumbs-el label="Bitcoin" icon="admin_panel_settings" />
+                <q-breadcrumbs-el label="BTC Strategies" icon="admin_panel_settings" to="/Strategies/BTC/List" />
+                <q-breadcrumbs-el class="text-grey" label="List" icon="admin_panel_settings" />
               </q-breadcrumbs>
             </div>
           </div>
@@ -67,8 +67,12 @@
                     :false-value="false"
                     :label="`Status is ${strategy.status}`"
                     :true-value="true"
+                    checked-icon="check"
+                    unchecked-icon="clear"
                     color="red"
                     v-model="strategy.status"
+                    :disable="strategy.status"
+                    @update:model-value="updateStatus(strategy.id, strategy.status)"
                     />
                   </q-card-actions>
                   <q-separator inset />
@@ -76,7 +80,7 @@
 
                   <q-card-actions align="around">
                     <q-btn round @click='onEdit(strategy.id)' color="primary" icon="edit" ></q-btn>
-                    <q-btn round @click="confirm = true; strategy_id = strategy.id" color="primary" icon="delete" ></q-btn>
+                    <q-btn round @click="confirm = true; strategy_id = strategy.id" color="primary" icon="delete" :disable="strategy.status"></q-btn>
                   </q-card-actions>
 
                 </q-card>
@@ -148,6 +152,43 @@
       }
     },
     methods: {
+
+      updateStatus(id, status) {
+        console.log("xxxxxxxxxxx", id, status);
+
+        let payload = {
+          "strategy_id": id,
+          "status": status
+        }
+
+        axios
+         .post(process.env.ENV_API_URL + '/strategies/status/', payload)
+         .then(response => {
+
+
+            console.log("wwwwwwwwwwwww", response);
+
+            let i;
+            for(i=0; i < this.strategies.length; i++){
+
+              console.log(this.strategies[i])
+              if(this.strategies[i].id !== id){
+                this.strategies[i].status = false
+              }
+            }
+
+          
+
+        })
+         .catch(error => {
+          console.log(error)
+          this.errored = true
+        })
+        .finally();
+
+
+      },
+
       onEdit (strategy_id) {
 
         this.$router.replace("/Strategies/BTC/Edit/" + strategy_id);
@@ -214,6 +255,8 @@
           status: strategies_list[i].status,
 
         })
+
+        console.log(this.strategies);
         
 
       }

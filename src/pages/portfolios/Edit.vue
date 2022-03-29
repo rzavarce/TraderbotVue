@@ -13,7 +13,7 @@
           </div>
           <div class="col-xs-12 col-sm-6">
             <div class="q-pa-md q-gutter-sm">
-              <q-breadcrumbs class="text-grey" align="right">
+              <q-breadcrumbs class="text-black" align="right">
                 <template v-slot:separator>
                   <q-icon
                   size="1.2em"
@@ -23,8 +23,8 @@
                 </template>
 
                 <q-breadcrumbs-el label="Dashboard" icon="home" to="/Dashboard" />
-                <q-breadcrumbs-el label="Portfolios" icon="admin_panel_settings" to="/Portfolios" />
-                <q-breadcrumbs-el label="Edit" icon="admin_panel_settings" />
+                <q-breadcrumbs-el label="Portfolios" icon="admin_panel_settings" to="/Portfolios/List" />
+                <q-breadcrumbs-el class="text-grey" label="Edit" icon="admin_panel_settings" />
               </q-breadcrumbs>
             </div>
           </div>
@@ -72,6 +72,57 @@
               :rules="[val => !!val || 'Email is required.']"
               />
 
+
+              <q-select
+                multiple
+                filled
+                map-options
+                id="currencies"
+                v-model="portfolio.currencies"
+                label="Currencies *"
+                :options="currencies_list"
+                behavior="menu"
+                lazy-rules
+                :rules="[ val => val && val != null || 'Currencies is required.']"
+                >
+                <template v-slot:option="{ itemProps, opt, selected, toggleOption }">
+                  <q-item v-bind="itemProps">
+                    <q-item-section>
+                      <q-item-label v-html="opt.label" />
+                    </q-item-section>
+                    <q-item-section side>
+                      <q-toggle :model-value="selected" @update:model-value="toggleOption(opt)" />
+                    </q-item-section>
+                  </q-item>
+                </template>
+              </q-select>
+
+              <q-select
+                multiple
+                filled
+                map-options
+                id="markets"
+                v-model="portfolio.markets"
+                label="Markets *"
+                :options="markets_list"
+                behavior="menu"
+                lazy-rules
+                :rules="[ val => val && val != null || 'Markets is required.']"
+                >
+                <template v-slot:option="{ itemProps, opt, selected, toggleOption }">
+                  <q-item v-bind="itemProps">
+                    <q-item-section>
+                      <q-item-label v-html="opt.label" />
+                    </q-item-section>
+                    <q-item-section side>
+                      <q-toggle :model-value="selected" @update:model-value="toggleOption(opt)" />
+                    </q-item-section>
+                  </q-item>
+                </template>
+              </q-select>
+
+
+
               <q-file 
               filled 
               clearable
@@ -113,6 +164,8 @@
 
 
 
+
+
           </div>
           <q-separator style="margin: 20px;"></q-separator>
           <div style="margin: 20px;">
@@ -151,7 +204,7 @@
                 :rules="[ val => val && val != null || 'Exchange is required.']"
                 />
               </div>
-              <div class="col-3" style="margin:5px;">
+              <div class="col-4" style="margin:5px;">
                 <q-input
                 filled
                 clearable
@@ -159,12 +212,12 @@
                 v-model="account.api_key"
                 label="Api Key *"
                 hint="Add Api Key"
-                maxlength="50"
+                maxlength="255"
                 lazy-rules
                 :rules="[val => !!val || 'Api Key is required.']"
                 />
               </div>
-              <div class="col-3" style="margin:5px;">
+              <div class="col-4" style="margin:5px;">
                 <q-input
                 filled
                 clearable
@@ -172,24 +225,10 @@
                 v-model="account.api_secret"
                 label="Api Secret *"
                 hint="Add Api Secret"
-                maxlength="50"
+                maxlength="255"
                 lazy-rules
                 :rules="[val => !!val || 'Api Secret is required.']"
                 />
-              </div>
-              <div class="col-2" style="margin:5px;">
-                <q-input
-                filled
-                id="balance"
-                v-model="account.balance"
-                label="Balance with 2 decimals"
-                mask="#.##"
-                fill-mask="0"
-                reverse-fill-mask
-                hint="Balance is required"
-                input-class="text-right"
-                />
-
               </div>
               <div class="col" style="margin:5px;">
                 <q-toggle
@@ -306,6 +345,8 @@
       portfolio: {},
       portfolios_history: [],   
       exchanges_list:[],
+      currencies_list: {},
+      markets_list: {},
       confirm: false,
       avatar: ref(null),
       index: 0,
@@ -319,10 +360,6 @@
   methods: {
 
     addRow() {   
-
-      console.log(this.accounts);
-      console.log(this.counter);
-      console.log(this.accounts[this.counter]);
 
 
       if (this.accounts[this.counter].exchange == "" || this.accounts[this.counter].api_key == "" || this.accounts[this.counter].api_secret == "" || this.accounts[this.counter].balance == "" ){
@@ -347,11 +384,6 @@
 
     deleteRow(){
 
-      console.log(this.index);
-      console.log(this.counter);
-
-
-      
 
       if (this.accounts[this.counter].exchange == "" || this.accounts[this.counter].api_key == "" || this.accounts[this.counter].api_secret == "" || this.accounts[this.counter].balance == "" ){
 
@@ -406,25 +438,26 @@
     onSubmit () {
 
       console.log("onSubmit");
-
-      console.log(this.portfolio);
-      console.log(this.accounts);
-
+      console.log(this.portfolio.markets);
 
 
       let form_data = {
         "id": this.portfolio.id,
         "title": this.portfolio.title,
         "email": this.portfolio.email,
+        "currencies": this.portfolio.currencies,
+        "markets": this.portfolio.markets,
         "avatar": this.portfolio.acatar,
         "description": this.portfolio.description,
         "accounts": this.accounts,
       }
 
+
+
       console.log(form_data);
 
 
-        //Loading.show();
+        Loading.show();
 
       axios
         .put(process.env.ENV_API_URL + '/portfolios/edit/'+ this.$route.params.id +'/', form_data)          
@@ -479,9 +512,45 @@
       }
       this.exchanges_list = results;
 
-      console.log(this.exchanges_list);
+      results = [];
+      options = response.data.currencies_list;
+      for(i=0; i<options.length; i++){
+        let option = options[i];
+        results.push({ label: option["name"], value: option["id"], short: option["short"] });
+      }
+      this.currencies_list = results;
+
+      results = [];
+      options = response.data.markets_list;
+      for(i=0; i<options.length; i++){
+        let option = options[i];
+        results.push({ label: option["symbol"], value: option["id"] });
+      }
+      this.markets_list = results;
+
+      console.log(this.markets_list);
+
 
       this.portfolio = response.data.portfolio_data[0]
+
+      
+      options = this.portfolio.currencies;
+      results = [];
+      for(i=0; i<options.length; i++){
+        let option = options[i];
+        results.push({ label: option["name"], value: option["id"], short: option["short"] });
+      }
+      this.portfolio.currencies = results
+
+      options = this.portfolio.markets;
+      results = [];
+      for(i=0; i<options.length; i++){
+        let option = options[i];
+        results.push({ label: option["symbol"], value: option["id"]});
+      }
+      this.portfolio.markets = results
+
+      console.log(this.portfolio.markets);
 
 
       options = response.data.accounts_data;
@@ -496,10 +565,6 @@
           "status": options[i].status,
         });
       }
-
-      // this.counter = this.accounts.length;
-
-      console.log(this.accounts);
 
       let history = response.data.portfolios_history;
       for(i=0; i < history.length; i++){

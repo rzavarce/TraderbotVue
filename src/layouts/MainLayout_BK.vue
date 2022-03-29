@@ -4,12 +4,12 @@
 
     <q-header elevated>
 
-      <div class="col-10 q-pa-md">
-        <div class="row no-wrap">
+      <div class="q-pa-md">
+        <div class="row no-wrap ">
           <div style="min-width: 300px" >
             <q-toolbar >
 
-
+              
               <q-avatar>
                 <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
               </q-avatar>
@@ -37,10 +37,12 @@
           icon="menu"
           aria-label="Menu"
           title="All Menu Toggle"
-          />          
+          />
+
+          
 
 
-          <q-toolbar class="bg-primary text-white gt-xs">
+          <q-toolbar class="col-10 bg-primary text-white gt-xs">
             <q-space />           
 
             <div class="q-gutter-sm row items-center no-wrap">
@@ -62,7 +64,7 @@
             <q-menu
             >
             <q-list style="min-width: 100px">
-
+              
               <q-card class="text-center no-shadow no-border">
                 <q-btn label="View All" style="max-width: 120px !important;" flat dense
                 class="text-indigo-8"></q-btn>
@@ -504,11 +506,11 @@ content-class="bg-grey-3"
       <b>Finish:</b> {{results.finish_datetime}}<br>
       <b>Time Exc:</b> {{results.delta_time}}
 
-
+      
 
     </q-timeline-entry>
 
-
+    
   </q-timeline>
 
   <q-btn flat @click='onEdit(portfolio.id)'>
@@ -584,11 +586,11 @@ content-class="bg-grey-3"
 
     },
     mounted () {
-
+      
       this.userData = JSON.parse(localStorage.getItem('user_data'));
 
       let payload = {
-
+        
         "result_id": "9b0175d4ac4211ec8d19d5f106503433",
         "limit": 5,
         

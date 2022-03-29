@@ -13,7 +13,7 @@
           </div>
           <div class="col-xs-12 col-sm-6">
             <div class="q-pa-md q-gutter-sm">
-              <q-breadcrumbs class="text-grey" align="right">
+              <q-breadcrumbs class="text-black" align="right">
                 <template v-slot:separator>
                   <q-icon
                   size="1.2em"
@@ -23,8 +23,8 @@
                 </template>
 
                 <q-breadcrumbs-el label="Dashboard" icon="home" to="/Dashboard" />
-                <q-breadcrumbs-el label="Portfolios" icon="admin_panel_settings" to="/Portfolios" />
-                <q-breadcrumbs-el label="Add" icon="admin_panel_settings" />
+                <q-breadcrumbs-el label="Portfolios" icon="admin_panel_settings" to="/Portfolios/List" />
+                <q-breadcrumbs-el class="text-grey" label="Add" icon="admin_panel_settings" />
               </q-breadcrumbs>
             </div>
           </div>
@@ -71,6 +71,54 @@
               lazy-rules
               :rules="[val => !!val || 'Email is required.']"
               />
+
+              <q-select
+                multiple
+                filled
+                map-options
+                id="currencies"
+                v-model="portfolio.currencies"
+                label="Currencies *"
+                :options="currencies_list"
+                behavior="menu"
+                lazy-rules
+                :rules="[ val => val && val != null || 'Currencies is required.']"
+                >
+                <template v-slot:option="{ itemProps, opt, selected, toggleOption }">
+                  <q-item v-bind="itemProps">
+                    <q-item-section>
+                      <q-item-label v-html="opt.label" />
+                    </q-item-section>
+                    <q-item-section side>
+                      <q-toggle :model-value="selected" @update:model-value="toggleOption(opt)" />
+                    </q-item-section>
+                  </q-item>
+                </template>
+              </q-select>
+
+              <q-select
+                multiple
+                filled
+                map-options
+                id="markets"
+                v-model="portfolio.markets"
+                label="Markets *"
+                :options="markets_list"
+                behavior="menu"
+                lazy-rules
+                :rules="[ val => val && val != null || 'Markets is required.']"
+                >
+                <template v-slot:option="{ itemProps, opt, selected, toggleOption }">
+                  <q-item v-bind="itemProps">
+                    <q-item-section>
+                      <q-item-label v-html="opt.label" />
+                    </q-item-section>
+                    <q-item-section side>
+                      <q-toggle :model-value="selected" @update:model-value="toggleOption(opt)" />
+                    </q-item-section>
+                  </q-item>
+                </template>
+              </q-select>
 
               <q-file 
               filled 
@@ -152,7 +200,7 @@
                 :rules="[ val => val && val != null || 'Exchange is required.']"
                 />
               </div>
-              <div class="col-3" style="margin:5px;">
+              <div class="col-4" style="margin:5px;">
                 <q-input
                 filled
                 clearable
@@ -165,7 +213,7 @@
                 :rules="[val => !!val || 'Api Key is required.']"
                 />
               </div>
-              <div class="col-3" style="margin:5px;">
+              <div class="col-4" style="margin:5px;">
                 <q-input
                 filled
                 clearable
@@ -177,20 +225,6 @@
                 lazy-rules
                 :rules="[val => !!val || 'Api Secret is required.']"
                 />
-              </div>
-              <div class="col-2" style="margin:5px;">
-                <q-input
-                filled
-                id="balance"
-                v-model="account.balance"
-                label="Balance with 2 decimals"
-                mask="#.##"
-                fill-mask="0"
-                reverse-fill-mask
-                hint="Balance is required"
-                input-class="text-right"
-                />
-
               </div>
               <div class="col" style="margin:5px;">
                 <q-toggle
@@ -293,6 +327,8 @@
       portfolio: [],
       portfolios_history: [],   
       exchanges_list:[],
+      currencies_list: [],
+      markets_list: [],
       avatar: ref(null),
       counter: 0,
       isValid: false,
@@ -358,6 +394,8 @@
         "title": this.portfolio.title,
         "email": this.portfolio.email,
         "avatar": this.portfolio.acatar,
+        "currencies": this.portfolio.currencies,
+        "markets": this.portfolio.markets,
         "description": this.portfolio.description,
         "accounts": this.accounts,
       }
@@ -429,44 +467,41 @@
       }
       this.exchanges_list = results;
 
-      console.log(this.exchanges_list);
+      results = [];
+      options = response.data.currencies_list;
+      for(i=0; i<options.length; i++){
+        let option = options[i];
+        results.push({ label: option["name"], value: option["id"], short: option["short"] });
+      }
+      this.currencies_list = results;
+
+      results = [];
+      options = response.data.markets_list;
+      for(i=0; i<options.length; i++){
+        let option = options[i];
+        results.push({ label: option["symbol"], value: option["id"] });
+      }
+      this.markets_list = results;
+
+            console.log(this.markets_list);
 
 
-      this.portfolio = {
-        "title": "xxxxxxxxxx",
-        "email": "rogerzavarce@gmail.com",
-        "avatar": null,
-        "description": "cvcvcvcvcvcv",
-        "status": false,        
-      };
 
-      this.accounts = [{
-        "exchange": 1,
-        "api_key": "xxxxxxxxx",
-        "api_secret": "yyyyyyyyyyyyy",
-        "balance": 121.21,
-        "status": false
-      }];
-
-      /*
-      
       this.portfolio = {
         "title": "",
         "email": "",
         "avatar": null,
         "description": "",
         "status": false,        
-      }
+      };
 
       this.accounts = [{
-        "exchange": "",
+        "exchange": 1,
         "api_key": "",
         "api_secret": "",
-        "balance": "",
         "status": false
-      }]
+      }];
 
-      */
 
 
 

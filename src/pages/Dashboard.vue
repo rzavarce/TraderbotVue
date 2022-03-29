@@ -7,15 +7,19 @@
     <tab-social/>
 
     <div class="row q-col-gutter-sm  q-py-sm">
+      <!-- 
+
       <iframe width="100%" height="420" frameborder="0" src="https://embed.theblockcrypto.com/data/crypto-markets/futures/btc-annualized-basis-binance/embed" title="BTC Annualized Daily Basis (Binance)"></iframe>
       <iframe width="100%" height="420" frameborder="0" src="https://embed.theblockcrypto.com/data/crypto-markets/spot/eth-spot-to-futures-volume/embed" title="ETH Spot to Futures Volume"></iframe>
 
        <iframe width="100%" height="420" frameborder="0" src="https://embed.theblockcrypto.com/data/crypto-markets/spot/btc-spot-to-futures-volume/embed" title="BTC Spot to Futures Volume"></iframe>
 
       <iframe width="100%" height="420" frameborder="0" src="https://embed.theblockcrypto.com/data/crypto-markets/spot/cryptocurrency-exchange-volume-monthly/embed" title="Cryptocurrency Exchange Volume (The Block Legitimate Index)"></iframe>
+
+    -->
     </div>
 
-    <table-visits/>
+    
   </q-page>
 
 </template>

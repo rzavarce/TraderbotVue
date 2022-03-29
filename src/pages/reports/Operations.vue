@@ -7,9 +7,9 @@
         <div class="row" style="background-color:white;">
           <div class="col-xs-12 col-sm-6">
             <div class="q-pa-md q-gutter-sm">
-              <span class="text-h4 text-indigo-8">Strategies Config</span>
+              <span class="text-h4 text-indigo-8">Operations Report</span>
               <br>
-              <span class="text-subtitle2">Strategies Adminitration.</span>
+              <span class="text-subtitle2">Reports Adminitration.</span>
             </div>
           </div>
           <div class="col-xs-12 col-sm-6">
@@ -24,8 +24,8 @@
                 </template>
 
                 <q-breadcrumbs-el label="Dashboard" icon="home" to="/Dashboard" />
-                <q-breadcrumbs-el label="Strategies" icon="admin_panel_settings" to="/Strategies" />
-                <q-breadcrumbs-el label="List" icon="admin_panel_settings" />
+                <q-breadcrumbs-el label="Reports" icon="admin_panel_settings" to="/Strategies" />
+                <q-breadcrumbs-el label="Operations" icon="admin_panel_settings" />
               </q-breadcrumbs>
             </div>
           </div>
@@ -35,6 +35,13 @@
       </q-card-section>
 
       <q-separator></q-separator>
+      <div class="col-md-12 col-xs-12" style="margin:20px 10px">
+        
+          <apex-line />
+
+      </div>
+
+      <q-separator></q-separator><br>
 
 
 
@@ -114,145 +121,28 @@
 
 <script>
 
-
   import axios from 'axios';
   import '../../router/axiosInterceptor';
+  import { defineComponent, defineAsyncComponent } from 'vue'
 
 
 
-
-  const columns = [
-  {
-    name: 'title',
-    required: true,
-    label: 'Title',
-    align: 'left',
-    field: row => row.name,
-    format: val => `${val}`,
-    sortable: true
-  },
-  { name: 'calories', align: 'center', label: 'Calories', field: 'calories', sortable: true },
-  { name: 'fat', label: 'Fat (g)', field: 'fat', sortable: true },
-  { name: 'carbs', label: 'Carbs (g)', field: 'carbs' },
-  { name: 'protein', label: 'Protein (g)', field: 'protein' },
-  { name: 'sodium', label: 'Sodium (mg)', field: 'sodium' },
-  { name: 'calcium', label: 'Calcium (%)', field: 'calcium', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-  { name: 'iron', label: 'Iron (%)', field: 'iron', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-  { name: 'actions', label: 'Actions', field: 'action', align:'center' },
-  ]
-
-  const rows = [
-  {
-    name: 'Frozen Yogurt',
-    calories: 159,
-    fat: 6.0,
-    carbs: 24,
-    protein: 4.0,
-    sodium: 87,
-    calcium: '14%',
-    iron: '1%'
-  },
-  {
-    name: 'Ice cream sandwich',
-    calories: 237,
-    fat: 9.0,
-    carbs: 37,
-    protein: 4.3,
-    sodium: 129,
-    calcium: '8%',
-    iron: '1%'
-  },
-  {
-    name: 'Eclair',
-    calories: 262,
-    fat: 16.0,
-    carbs: 23,
-    protein: 6.0,
-    sodium: 337,
-    calcium: '6%',
-    iron: '7%'
-  },
-  {
-    name: 'Cupcake',
-    calories: 305,
-    fat: 3.7,
-    carbs: 67,
-    protein: 4.3,
-    sodium: 413,
-    calcium: '3%',
-    iron: '8%'
-  },
-  {
-    name: 'Gingerbread',
-    calories: 356,
-    fat: 16.0,
-    carbs: 49,
-    protein: 3.9,
-    sodium: 327,
-    calcium: '7%',
-    iron: '16%'
-  },
-  {
-    name: 'Jelly bean',
-    calories: 375,
-    fat: 0.0,
-    carbs: 94,
-    protein: 0.0,
-    sodium: 50,
-    calcium: '0%',
-    iron: '0%'
-  },
-  {
-    name: 'Lollipop',
-    calories: 392,
-    fat: 0.2,
-    carbs: 98,
-    protein: 0,
-    sodium: 38,
-    calcium: '0%',
-    iron: '2%'
-  },
-  {
-    name: 'Honeycomb',
-    calories: 408,
-    fat: 3.2,
-    carbs: 87,
-    protein: 6.5,
-    sodium: 562,
-    calcium: '0%',
-    iron: '45%'
-  },
-  {
-    name: 'Donut',
-    calories: 452,
-    fat: 25.0,
-    carbs: 51,
-    protein: 4.9,
-    sodium: 326,
-    calcium: '2%',
-    iron: '22%'
-  },
-  {
-    name: 'KitKat',
-    calories: 518,
-    fat: 26.0,
-    carbs: 65,
-    protein: 7,
-    sodium: 54,
-    calcium: '12%',
-    iron: '6%'
-  }
-  ]
+  const ApexLine = defineAsyncComponent(() =>
+    import('components/ApexLine.vue')
+  )
 
   export default {
     data() {
       return {
         filter: '',
         mode: "list",
-        columns,
-        rows
+        columns: [],
+        rows: []
 
       }
+    },
+    components: {
+      ApexLine,      
     },
     methods: {
 
@@ -296,16 +186,43 @@
   mounted () {
 
      axios
-     .get(process.env.ENV_API_URL + '/strategies/')
+     .post(process.env.ENV_API_URL + '/reports/operations/')
      .then(response => {
 
-      //console.log(response.data.results);
+        console.log(response.data.operations);
 
-      this.strategy = response.data.results[0];
+        this.columns = [
+          { name: 'datetime', label: 'Datetime', field: 'datetime', align: 'center',  sortable: true },
+          { name: 'portfolio', label: 'Portfolio', field: 'portfolio', align: 'center',  sortable: true },
+          { name: 'exchange', label: 'Exchange', field: 'exchange', align: 'center',  sortable: true },
+          { name: 'market', label: 'Market', field: 'market', align: 'center',  sortable: true },
+          { name: 'action', label: 'Action', field: 'action', align: 'center',  sortable: true },
+          { name: 'amount', label: 'Amount', field: 'amount', align: 'center',  sortable: true },
+          { name: 'balance', label: 'Balance', field: 'balance', align: 'center',  sortable: true },
+          { name: 'price', label: 'Price', field: 'price', align: 'center',  sortable: true },
+          { name: 'cost', label: 'cost', field: 'cost', align: 'center',  sortable: true },
+          { name: 'actions', label: 'Actions', field: 'action', align:'center' },
+      ];
 
-      console.log(this.strategy);
 
-
+      let results = [];
+      let i;
+      let options = response.data.operations;
+      for(i=0; i<options.length; i++){
+        let option = options[i];
+        results.push({ 
+          datetime: option["created_date"],
+          portfolio: option["account"]['portfolio']['title'], 
+          exchange: option["exchange"]['name'],
+          market: option["market"]["symbol"], 
+          action: option["action"],
+          amount: option["amount"], 
+          balance: option["balance"],
+          price: option["price"], 
+          cost: option["cost"],
+        });
+      }
+      this.rows = results;
 
     })
      .catch(error => {

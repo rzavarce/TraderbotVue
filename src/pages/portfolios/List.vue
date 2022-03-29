@@ -13,7 +13,7 @@
           </div>
           <div class="col-xs-12 col-sm-6">
             <div class="q-pa-md q-gutter-sm">
-              <q-breadcrumbs class="text-grey" align="right">
+              <q-breadcrumbs class="text-black" align="right">
                 <template v-slot:separator>
                   <q-icon
                   size="1.2em"
@@ -23,8 +23,8 @@
                 </template>
 
                 <q-breadcrumbs-el label="Dashboard" icon="home" to="/Dashboard" />
-                <q-breadcrumbs-el label="Portfolios" icon="admin_panel_settings" to="/Porfolios" />
-                <q-breadcrumbs-el label="List" icon="admin_panel_settings" />
+                <q-breadcrumbs-el label="Portfolios" icon="admin_panel_settings" to="/Portfolios/List" />
+                <q-breadcrumbs-el class="text-grey" label="List" icon="admin_panel_settings" />
               </q-breadcrumbs>
             </div>
           </div>
@@ -167,7 +167,7 @@
             icon: 'cloud_done',
             message: 'Deleted'
           });
-
+          
         })
         .catch(error => {
           console.log(error)
