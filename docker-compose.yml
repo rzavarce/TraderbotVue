@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  traderbot_webapp:
+    container_name: traderbot_webapp
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: always
+    ports:
+      - "8181:8181"
+    command: sh
+    stdin_open: true
+    tty: true
+    environment:
+      CHOKIDAR_USEPOLLING: true
+      VIRTUAL_HOST: phpmyadmin.tradingbotservices.com
+      LETSENCRYPT_HOST: phpmyadmin.tradingbotservices.com
+      LETSENCRYPT_EMAIL: rogerzavarce@gmail.com
+
+networks:
+  default:
+    external:
+      name: tradingbot

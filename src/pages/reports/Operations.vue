@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-md">
-    <q-card>
-
+    <q-card style="min-height: inherit;">
+      
       <q-card-section>
 
         <div class="row" style="background-color:white;">
