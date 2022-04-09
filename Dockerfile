@@ -13,8 +13,9 @@ WORKDIR /opt/projects/TraderbotVue/
 
 COPY ./* /opt/projects/TraderbotVue/
 
-RUN npm install
 RUN npm install -g @vue/cli
 RUN npm install -g @quasar/cli
+RUN npm install
+
 
 RUN quasar build
