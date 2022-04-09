@@ -1,9 +1,9 @@
 {
-  "name": "test",
+  "name": "tradingbot_app",
   "version": "0.0.1",
-  "description": "A Quasar Framework app",
-  "productName": "Quasar App",
-  "author": "",
+  "description": "Algorithmic Trading Bot",
+  "productName": "Trading Bot App",
+  "author": "Roger Zavarce",
   "private": true,
   "scripts": {
     "test": "echo \"No test specified\" && exit 0"

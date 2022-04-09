@@ -8,14 +8,15 @@ services:
       dockerfile: ./Dockerfile
     restart: always
     ports:
-      - "8181:8181"
+      - "8881:8881"
     command: sh
     stdin_open: true
     tty: true
     environment:
-      CHOKIDAR_USEPOLLING: true
-      VIRTUAL_HOST: phpmyadmin.tradingbotservices.com
-      LETSENCRYPT_HOST: phpmyadmin.tradingbotservices.com
+      #CHOKIDAR_USEPOLLING: true
+      VIRTUAL_HOST: app.tradingbotservices.com
+      VIRTUAL_PORT: 8881
+      LETSENCRYPT_HOST: app.tradingbotservices.com
       LETSENCRYPT_EMAIL: rogerzavarce@gmail.com
 
 networks:

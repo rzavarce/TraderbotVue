@@ -1,5 +1,5 @@
 
-FROM node:8-alpine
+FROM node:16-alpine
 
 FROM node:8-alpine
 RUN apk add --update bash && rm -rf /var/cache/apk/*
@@ -13,7 +13,8 @@ WORKDIR /opt/projects/TraderbotVue/
 
 COPY ./* /opt/projects/TraderbotVue/
 
-CMD ["quasar", "build"]
-# CMD ["quasar", "dev"]
+RUN npm install
+RUN npm install -g @vue/cli
+RUN npm install -g @quasar/cli
 
-
+RUN quasar build
