@@ -11,5 +11,5 @@ RUN npm install
 
 RUN npm install -g @quasar/cli
 
-# RUN quasar build
-RUN quasar dev
+RUN quasar build
+# RUN quasar dev
