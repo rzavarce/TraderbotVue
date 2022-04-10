@@ -68,7 +68,7 @@ module.exports = function (ctx) {
 
       env: {
 
-        ENV_TITLE:'TraderBotService',
+        ENV_TITLE:'TradingBotServices',
         ENV_APP_URL:'http://0.0.0.0:8080',
         ENV_APP_ASSETS:'http://127.0.0.1:8000/',
         ENV_API_URL:'http://localhost:8000/api/v1',
@@ -82,8 +82,8 @@ module.exports = function (ctx) {
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
-      https: false,
-      port: 8080,
+      https: true,
+      port: 8881,
       open: true // opens browser window automatically
     },
 
@@ -101,9 +101,9 @@ module.exports = function (ctx) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: 'TraderBotService',
-        short_name: 'Quasar App',
-        description: 'A Quasar Framework app',
+        name: 'Trader Bot Services App',
+        short_name: 'TTraderBotServices',
+        description: 'A Trader Bot App',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
