@@ -1,5 +1,5 @@
 # Build stage
-FROM node:latest
+FROM node:latest as develop-stage
 
 RUN mkdir -p /opt/projects/TraderbotVue/
 
@@ -14,7 +14,7 @@ RUN npm install -g @quasar/cli
 RUN quasar build
 
 # Runtime stage
-FROM nginx
+FROM nginx as production-stage
 ENV projectName "TradingbotWebApp"
 COPY --from=buildenv /opt/projects/TraderbotVue/dist/spa/* /usr/share/nginx/html/
 # COPY ./${projectName}/default.conf /etc/nginx/conf.d/default.conf
