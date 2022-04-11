@@ -8,14 +8,13 @@ services:
       dockerfile: ./Dockerfile
     restart: always
     ports:
-      - "8881:8881"
-    command: quasar dev
+      - "80:80"
+    # command: quasar dev
     stdin_open: true
     tty: true
     environment:
       #CHOKIDAR_USEPOLLING: true
       VIRTUAL_HOST: app.tradingbotservices.com
-      VIRTUAL_PORT: 8881
       LETSENCRYPT_HOST: app.tradingbotservices.com
       LETSENCRYPT_EMAIL: rogerzavarce@gmail.com
 
