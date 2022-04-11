@@ -8,7 +8,7 @@ services:
       dockerfile: ./Dockerfile
     restart: always
     ports:
-      - "80:80"
+      - "8881:8881"
     # command: quasar dev
     stdin_open: true
     tty: true
