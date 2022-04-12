@@ -16,7 +16,7 @@ RUN quasar build
 # Runtime stage
 FROM nginx as production-stage
 ENV projectName "TradingbotWebApp"
-COPY --from=build-stage /opt/projects/TraderbotVue/dist/spa/* /usr/share/nginx/html/
+COPY --from=build-stage /opt/projects/TraderbotVue/dist/spa/. /usr/share/nginx/html/
 COPY --from=build-stage /opt/projects/TraderbotVue/ci/default.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 8881

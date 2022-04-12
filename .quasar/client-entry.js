@@ -47,13 +47,10 @@ import quasarUserOptions from './quasar-user-options.js'
 
 
 
-console.info('[Quasar] Running SPA.')
 
 
 
-
-
-const publicPath = `/`
+const publicPath = ``
 
 
 async function start ({ app, router, store, storeKey }, bootFiles) {
@@ -82,7 +79,7 @@ async function start ({ app, router, store, storeKey }, bootFiles) {
     // continue if we didn't fail to resolve the url
     if (href !== null) {
       window.location.href = href
-      
+      window.location.reload()
     }
   }
 
