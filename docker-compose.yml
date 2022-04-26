@@ -17,6 +17,9 @@ services:
       VIRTUAL_HOST: app.tradingbotservices.com
       LETSENCRYPT_HOST: app.tradingbotservices.com
       LETSENCRYPT_EMAIL: rogerzavarce@gmail.com
+    networks:
+      default:
+        ipv4_address: 172.18.0.100
 
 networks:
   default:
